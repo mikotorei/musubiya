@@ -1,0 +1,49 @@
+# 雛形：指示書の Issue フォーム（元は miko-hub/templates/.github/ISSUE_TEMPLATE/instruction.yml）。
+# 配るときは、このファイルを各リポジトリの .github/ISSUE_TEMPLATE/instruction.yml に同じ名前で写す。
+# ラベル（案・着手可・作業中・承認待ち・完了）は miko-hub の templates/labels.py で作る。
+name: 指示書
+description: 担当（Claude Code）に任せる作業。一言だけでもよい（ラベルは「案」で始まる）
+labels: ["案"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        「案」で作られます。担当が拾ってよいのは「着手可」が付いてから（付けるのは社長だけ）。
+        タイトルだけでも出せます（欄はすべて任意）。最も大事なのは「完了の基準」と「やらないこと」です。
+  - type: textarea
+    id: purpose
+    attributes:
+      label: 目的
+      description: 何のために、何をしたいか
+  - type: textarea
+    id: done
+    attributes:
+      label: 完了の基準
+      description: 何がどうなっていれば終わりか。確かめ方も書く
+      placeholder: "- [ ] …"
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: やらないこと
+      description: 手を出してはいけない範囲・変えてはいけないもの
+  - type: dropdown
+    id: decision
+    attributes:
+      label: 決裁
+      description: 公開・費用が発生するもの・本番への反映は事前承認
+      options:
+        - 事後報告
+        - 事前承認
+  - type: dropdown
+    id: human-check
+    attributes:
+      label: 人の目の確認
+      description: 見た目・手触りなど、社長が実物で確かめる必要があるか
+      options:
+        - 要る
+        - 要らない
+  - type: textarea
+    id: references
+    attributes:
+      label: 参考
+      description: 関係するファイル・URL・過去の Issue など
