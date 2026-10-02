@@ -1,0 +1,71 @@
+name: 担当（完了）
+
+# 担当の提案（claude/issue-<番号>-<実行番号> の枝から既定の枝への提案）が閉じた時、Issue を片づける。
+#   proposal：提案が閉じた時（pull_request_target）。Issue 番号は枝の名前から取る（worker pr-closed）
+#     - 反映された：Issue を「完了」の扱いで閉じ、「承認待ち」→「完了」
+#     - 反映されずに閉じた：「承認待ち」→「案」に戻し、その旨をコメントする
+#     本文の「Closes #番号」は、公開リポジトリでは閉じる指示として扱われないことがあるため、これを当てにしない。
+#     標準のトークンで閉じても次のワークフローは起動しないので、ラベルの付け替えもこのジョブで行う。
+#   done：Issue が「完了」の扱いで閉じた時（社長が手で閉じた時、本文の「Closes」が効いた時）、「承認待ち」→「完了」。
+#     「対応しない」で閉じた Issue には触らない。
+# 両方が動いても、「承認待ち」が無ければ何もしないので結果は同じ。
+on:
+  issues:
+    types: [closed]
+  # 提案の枝の中身は動かさない（既定の枝のワークフローとプログラムで動く）
+  pull_request_target:
+    types: [closed]
+
+permissions: {}
+
+jobs:
+  proposal:
+    if: >-
+      github.event_name == 'pull_request_target' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      startsWith(github.event.pull_request.head.ref, 'claude/issue-')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    timeout-minutes: 7  # 各手順の timeout-minutes の合計（6分）より長くする
+    steps:
+      # 提案の枝ではなく、既定の枝のプログラムを使う
+      - uses: actions/checkout@v7
+        timeout-minutes: 2
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+
+      - uses: actions/setup-python@v7
+        timeout-minutes: 2
+        with:
+          python-version: '3.12'
+
+      - name: 依存を入れる
+        timeout-minutes: 1
+        run: pip install -r worker/requirements.txt
+
+      - name: 反映なら「完了」、反映なしなら「案」に戻す
+        timeout-minutes: 1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m worker pr-closed
+
+  done:
+    if: >-
+      github.event_name == 'issues' &&
+      github.event.issue.state_reason == 'completed' && contains(github.event.issue.labels.*.name, '承認待ち')
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    # 手順の timeout-minutes（2分）より長くする
+    timeout-minutes: 3
+    steps:
+      - name: 「承認待ち」を「完了」に替える
+        timeout-minutes: 2
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+        run: gh issue edit "$NUMBER" --remove-label 承認待ち --add-label 完了
