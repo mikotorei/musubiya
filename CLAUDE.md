@@ -1,7 +1,7 @@
 # CLAUDE.md
 
 このリポジトリは、屋号「結び屋」のホームページ（作り手みこの紹介と、作ったものへの入口）です。
-HTML と CSS だけの静的サイトで、GitHub Pages から https://musubiya-miko.com/ として公開します。
+HTML と CSS の静的サイトで、GitHub Pages から https://musubiya-miko.com/ として公開します。
 
 ## 決まりごと
 
@@ -12,9 +12,12 @@ HTML と CSS だけの静的サイトで、GitHub Pages から https://musubiya-
 ## 作りの方針
 
 - 来た人がざっと眺めて数秒で分かることを一番大事にする。押さなくても全部の情報が見えるようにする。動きはおまけ。
-- HTML と CSS だけで作る（JavaScript やビルドの仕組みは入れない）。
+- HTML と CSS で作り、ビルドの仕組みは入れない。
+- 情報の表示に JavaScript を使わない。JavaScript が動かなくても、全部の情報が見えること。
+- 計測やゲームのように、表示以外の目的の JavaScript は使ってよい（今は Google アナリティクスのタグだけ）。
 - スマホと PC の両方で見やすくする。
 - 広告はまだ置かない。
+- アクセス解析（Google アナリティクス、測定ID `G-XVP6Q1BMXK`）を使っていることを、下の帯に短く書いておく。Cookie の同意の帯は付けない。
 - `CNAME`（musubiya-miko.com）は消さない。
 
 ## 見た目
