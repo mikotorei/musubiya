@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#B33A2B"/>
+  <rect x="5" y="5" width="54" height="54" rx="3" fill="none" stroke="#F5F0E6" stroke-opacity="0.55" stroke-width="3"/>
+  <text x="32" y="44" font-size="36" font-weight="800" text-anchor="middle" fill="#F5F0E6" font-family="'Shippori Mincho B1','Hiragino Mincho ProN','Yu Mincho','Noto Serif JP',serif">結</text>
+</svg>
