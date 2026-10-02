@@ -436,6 +436,17 @@ a.fuda-link:focus-visible { color: var(--shu); }
   color: var(--muted);
 }
 
+.footer-note {
+  max-width: 44em;
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.footer-note a {
+  white-space: nowrap;
+}
+
 /* ---------- スマホ ---------- */
 
 @media (max-width: 760px) {
