@@ -418,13 +418,31 @@ a.fuda-link:focus-visible { color: var(--shu); }
   opacity: 0.85;
 }
 
-.request-note {
-  display: inline-block;
+.request-entry {
   margin-top: 32px;
+}
+
+.request-price {
   padding: 8px 16px;
   border-left: 3px solid var(--shu);
   background: rgba(245, 240, 230, 0.08);
   font-weight: 500;
+}
+
+.request-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 28px;
+  border-radius: 2px;
+  background: var(--kinari);
+  color: var(--sumi);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.request-button:hover,
+.request-button:focus-visible {
+  background: var(--paper);
 }
 
 /* ---------- 6. 下の帯 ---------- */
