@@ -16,6 +16,7 @@
 | `docs/sitemap.xml` | 検索エンジン向けのページ一覧 |
 | `docs/robots.txt` | 検索エンジン向けの巡回の許可と `sitemap.xml` の場所 |
 | `docs/.nojekyll` | GitHub Pages の Jekyll 処理を止める |
+| `ofuse/` | OFUSE（投げ銭）に入れる内容・画像（公開されない。登録はお母さんが行う） |
 | `CLAUDE.md` | 作業の決まりごと（担当の職務規定を含む） |
 | `journal/` | 作業日誌 |
 | `.github/ISSUE_TEMPLATE/instruction.yml` | 指示書の Issue フォーム |
@@ -40,3 +41,4 @@
 
 - 制作中のゲームの名前：`docs/index.html` の「タイトル未定」を 1 か所差し替える（目印のコメントあり）
 - ページを足したり中身を大きく変えたりしたとき：`docs/sitemap.xml` の `<url>` と `<lastmod>` を直す
+- OFUSE の URL が決まったとき：`docs/index.html` の「四　応援」にある目印コメントの下の `href` を差し替える
