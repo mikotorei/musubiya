@@ -16,7 +16,7 @@
 | `docs/sitemap.xml` | 検索エンジン向けのページ一覧 |
 | `docs/robots.txt` | 検索エンジン向けの巡回の許可と `sitemap.xml` の場所 |
 | `docs/.nojekyll` | GitHub Pages の Jekyll 処理を止める |
-| `ofuse/` | OFUSE（投げ銭）に入れる内容・画像（公開されない。登録はお母さんが行う） |
+| `ofuse/` | OFUSE（投げ銭）の登録の手引き（PDF）・入れる内容・画像（公開されない。登録はお母さんが行う） |
 | `CLAUDE.md` | 作業の決まりごと（担当の職務規定を含む） |
 | `journal/` | 作業日誌 |
 | `.github/ISSUE_TEMPLATE/instruction.yml` | 指示書の Issue フォーム |
