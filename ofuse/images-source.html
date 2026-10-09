@@ -1,0 +1,19 @@
+<!doctype html><html><head><meta charset="utf-8">
+<!-- OFUSE 用の画像（icon.png と header.png）のもと。ブラウザで開き、#icon（1000×1000）と #header（1500×500）をそれぞれ画像として書き出す。 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@800&family=Zen+Kaku+Gothic+New:wght@500&display=swap">
+<style>
+html,body{margin:0}
+.icon{width:1000px;height:1000px;display:grid;place-items:center;background:#F5F0E6}
+.icon .seal{width:680px;height:680px;border-radius:32px;background:#B33A2B;display:grid;place-items:center;box-shadow:inset 0 0 0 20px #B33A2B,inset 0 0 0 31px rgba(245,240,230,.6)}
+.icon .seal span{font-family:"Shippori Mincho B1";font-weight:800;font-size:450px;line-height:1;color:#F5F0E6;transform:translateY(-10px)}
+.header{width:1500px;height:500px;background:#F5F0E6;color:#201E1B;display:flex;align-items:center;justify-content:center;gap:56px;position:relative;font-family:"Zen Kaku Gothic New"}
+.header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:22px;background:#2B3F5C}
+.header .seal{width:200px;height:200px;border-radius:12px;background:#B33A2B;display:grid;place-items:center;box-shadow:inset 0 0 0 7px #B33A2B,inset 0 0 0 11px rgba(245,240,230,.6)}
+.header .seal span{font-family:"Shippori Mincho B1";font-weight:800;font-size:130px;line-height:1;color:#F5F0E6;transform:translateY(-4px)}
+.header .name{font-family:"Shippori Mincho B1";font-weight:800;font-size:96px;letter-spacing:.14em;line-height:1.2}
+.header .lead{margin-top:14px;font-size:34px;letter-spacing:.06em}
+.header .maker{margin-top:10px;font-size:26px;letter-spacing:.2em;color:rgba(32,30,27,.68)}
+</style></head><body>
+<div class="icon" id="icon"><div class="seal"><span>結</span></div></div>
+<div class="header" id="header"><div class="seal"><span>結</span></div><div><div class="name">結び屋</div><div class="lead">みこが作った、ゲームと道具の置き場。</div><div class="maker">作り手 みこ</div></div></div>
+</body></html>

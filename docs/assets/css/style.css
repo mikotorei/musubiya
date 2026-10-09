@@ -445,6 +445,44 @@ a.fuda-link:focus-visible { color: var(--shu); }
   background: var(--paper);
 }
 
+/* ---------- 応援 ---------- */
+
+.support {
+  padding-top: 72px;
+  padding-bottom: 80px;
+}
+
+.support-box {
+  max-width: 760px;
+  padding: 28px 28px 24px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--shu);
+  border-radius: 2px;
+}
+
+.support-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 28px;
+  border-radius: 2px;
+  background: var(--shu);
+  color: var(--kinari);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.support-button:hover,
+.support-button:focus-visible {
+  background: var(--sumi);
+}
+
+.support-note {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
 /* ---------- 6. 下の帯 ---------- */
 
 .site-footer {
@@ -505,5 +543,8 @@ a.fuda-link:focus-visible { color: var(--shu); }
   .fuda-link { padding-top: 14px; }
 
   .request { padding: 56px 0 64px; }
+  .support { padding-top: 56px; padding-bottom: 64px; }
+  .support-box { padding: 22px 20px 20px; }
+  .support-button { padding: 12px 20px; }
   .request-list { grid-template-columns: 1fr; gap: 12px; }
 }
