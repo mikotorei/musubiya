@@ -41,4 +41,4 @@
 
 - 制作中のゲームの名前：`docs/index.html` の「タイトル未定」を 1 か所差し替える（目印のコメントあり）
 - ページを足したり中身を大きく変えたりしたとき：`docs/sitemap.xml` の `<url>` と `<lastmod>` を直す
-- OFUSE の URL が決まったとき：`docs/index.html` の「四　応援」にある目印コメントの下の `href` を差し替える
+- OFUSE の URL が変わったとき：`docs/index.html` の「四　応援」にある目印コメントの下の `href` を差し替える（今は https://ofuse.me/dfd7ad8d ）
