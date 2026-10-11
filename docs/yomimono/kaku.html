@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>書く画面 ｜ 結び屋</title>
+  <meta name="theme-color" content="#F5F0E6">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/yomimono.css">
+  <!-- 書く画面：社長専用。保存には社長のスマホに入れた GitHub の鍵が要る。計測はしない。 -->
+  <script src="../assets/js/kaku.js" defer></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="../" aria-label="結び屋 ホーム">
+        <span class="seal-square" aria-hidden="true">結</span>
+        <span class="brand-name">結び屋</span>
+      </a>
+      <nav class="site-nav" aria-label="目次">
+        <ul>
+          <li><a href="./">読みもの</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="kaku-main">
+    <div class="wrap yomi-wrap">
+      <h1 class="yomi-title">書く画面</h1>
+      <noscript><p class="kaku-check">この画面は JavaScript を使います。ブラウザの設定で JavaScript を有効にしてください。</p></noscript>
+
+      <!-- 鍵 -->
+      <section class="kaku-box" aria-labelledby="key-title">
+        <h2 id="key-title">保存の鍵</h2>
+        <div id="key-empty">
+          <p class="kaku-note">保存には、GitHub で作った鍵が要ります。鍵はこのスマホの中にだけ残り、サイトには置かれません。</p>
+          <label class="kaku-label" for="key-input">鍵</label>
+          <input class="kaku-input" id="key-input" type="password" autocomplete="off" autocapitalize="off" spellcheck="false">
+          <div class="kaku-buttons">
+            <button class="kaku-button" id="key-save" type="button">鍵を入れる</button>
+          </div>
+        </div>
+        <div id="key-set" hidden>
+          <p class="kaku-note">鍵は、このスマホに入っています。</p>
+          <div class="kaku-buttons">
+            <button class="kaku-button is-sub" id="key-clear" type="button">鍵を消す</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 書くもの -->
+      <section class="kaku-box" aria-labelledby="write-title">
+        <h2 id="write-title">書くもの</h2>
+        <label class="kaku-label" for="draft-select">どれを書くか</label>
+        <select class="kaku-select" id="draft-select"></select>
+
+        <p class="kaku-note" id="lead-link-note" hidden></p>
+
+        <label class="kaku-label" for="f-title">題</label>
+        <input class="kaku-input" id="f-title" type="text" autocomplete="off">
+
+        <label class="kaku-label" for="f-nerai">狙いの言葉</label>
+        <input class="kaku-input" id="f-nerai" type="text" autocomplete="off">
+
+        <label class="kaku-label" for="f-body">本文</label>
+        <textarea class="kaku-textarea" id="f-body"></textarea>
+        <p class="kaku-autosave" id="autosave-note">書いている途中の題と本文は、このスマホに自動で残ります。</p>
+
+        <ul class="kaku-help">
+          <li>空いた行で、段落が分かれます。</li>
+          <li>行の頭を「■」にすると、小見出しになります。</li>
+          <li>https:// から始まる URL は、自動でリンクになります。</li>
+        </ul>
+
+        <p class="kaku-check" id="nerai-check" hidden></p>
+
+        <div class="kaku-buttons">
+          <button class="kaku-button" id="save" type="button">保存して提案を作る</button>
+          <button class="kaku-button is-sub" id="preview-toggle" type="button">見本を見る</button>
+          <button class="kaku-button is-sub" id="draft-clear" type="button">書いた内容を消す</button>
+        </div>
+        <p class="kaku-status" id="status" role="status"></p>
+        <iframe class="kaku-preview" id="preview" title="見本" hidden></iframe>
+      </section>
+    </div>
+  </main>
+
+</body>
+</html>

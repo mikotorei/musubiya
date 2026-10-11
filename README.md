@@ -12,6 +12,9 @@
 | --- | --- |
 | `docs/index.html` | ホーム |
 | `docs/assets/css/style.css` | 見た目 |
+| `docs/yomimono/index.html` | 読みものの一覧 |
+| `docs/yomimono/kaku.html`・`docs/assets/js/kaku.js` | 社長専用の書く画面（保存すると読みもののページを作り、提案を出す） |
+| `docs/assets/css/yomimono.css` | 読みもの・書く画面の見た目 |
 | `docs/CNAME` | 独自ドメインの設定 |
 | `docs/sitemap.xml` | 検索エンジン向けのページ一覧 |
 | `docs/robots.txt` | 検索エンジン向けの巡回の許可と `sitemap.xml` の場所 |
@@ -42,3 +45,4 @@
 - 制作中のゲームの名前：`docs/index.html` の「タイトル未定」を 1 か所差し替える（目印のコメントあり）
 - ページを足したり中身を大きく変えたりしたとき：`docs/sitemap.xml` の `<url>` と `<lastmod>` を直す
 - OFUSE の URL が変わったとき：`docs/index.html` の「四　応援」にある目印コメントの下の `href` を差し替える（今は https://ofuse.me/dfd7ad8d ）
+- 読みものを書くとき：スマホで https://musubiya-miko.com/yomimono/kaku.html を開いて書き、「保存して提案を作る」を押し、出来た提案をマージする
