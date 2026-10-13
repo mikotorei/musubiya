@@ -5,8 +5,8 @@
  * 一覧（docs/yomimono/index.html）と docs/sitemap.xml を書き換えて、
  * GitHub に作業用の枝と提案（プルリクエスト）を作る。マージすると公開される。
  *
- * 保存には、社長のスマホに入れた GitHub の鍵（細かい権限の個人用トークン）が要る。
- * 鍵と書きかけは、このスマホのブラウザの中（localStorage）にだけ残す。
+ * 保存には、社長のスマホか PC に入れた GitHub の鍵（細かい権限の個人用トークン）が要る。
+ * 鍵と書きかけは、そのブラウザの中（localStorage）にだけ残す（スマホと PC では別々）。
  */
 (function () {
   'use strict';
@@ -443,7 +443,7 @@
     function persist() {
       if (storeSet(STORE_KEY, JSON.stringify(state))) {
         var d = new Date();
-        $('autosave-note').textContent = 'このスマホに残しました（' + d.getHours() + '時' + ('0' + d.getMinutes()).slice(-2) + '分）。';
+        $('autosave-note').textContent = 'このブラウザに残しました（' + d.getHours() + '時' + ('0' + d.getMinutes()).slice(-2) + '分）。';
       } else {
         $('autosave-note').textContent = 'このブラウザでは自動で残せません。保存する前に画面を閉じないでください。';
       }
@@ -627,7 +627,7 @@
     });
 
     $('key-clear').addEventListener('click', function () {
-      if (!window.confirm('このスマホから鍵を消します。よろしいですか。')) return;
+      if (!window.confirm('このブラウザから鍵を消します。よろしいですか。')) return;
       storeDel(TOKEN_KEY);
       refreshKey();
       setStatus('鍵を消しました。');

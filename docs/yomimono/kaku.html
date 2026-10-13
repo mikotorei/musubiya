@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/yomimono.css">
-  <!-- 書く画面：社長専用。保存には社長のスマホに入れた GitHub の鍵が要る。計測はしない。 -->
+  <!-- 書く画面：社長専用。保存には社長のスマホか PC に入れた GitHub の鍵が要る。計測はしない。 -->
   <script src="../assets/js/kaku.js" defer></script>
 </head>
 <body>
@@ -40,7 +40,7 @@
       <section class="kaku-box" aria-labelledby="key-title">
         <h2 id="key-title">保存の鍵</h2>
         <div id="key-empty">
-          <p class="kaku-note">保存には、GitHub で作った鍵が要ります。鍵はこのスマホの中にだけ残り、サイトには置かれません。</p>
+          <p class="kaku-note">保存には、GitHub で作った鍵が要ります。鍵はこのブラウザの中にだけ残り、サイトには置かれません。</p>
           <label class="kaku-label" for="key-input">鍵</label>
           <input class="kaku-input" id="key-input" type="password" autocomplete="off" autocapitalize="off" spellcheck="false">
           <div class="kaku-buttons">
@@ -48,7 +48,7 @@
           </div>
         </div>
         <div id="key-set" hidden>
-          <p class="kaku-note">鍵は、このスマホに入っています。</p>
+          <p class="kaku-note">鍵は、このブラウザに入っています。</p>
           <div class="kaku-buttons">
             <button class="kaku-button is-sub" id="key-clear" type="button">鍵を消す</button>
           </div>
@@ -71,7 +71,7 @@
 
         <label class="kaku-label" for="f-body">本文</label>
         <textarea class="kaku-textarea" id="f-body"></textarea>
-        <p class="kaku-autosave" id="autosave-note">書いている途中の題と本文は、このスマホに自動で残ります。</p>
+        <p class="kaku-autosave" id="autosave-note">書いている途中の題と本文は、このブラウザに自動で残ります（スマホと PC では別々に残ります）。</p>
 
         <ul class="kaku-help">
           <li>空いた行で、段落が分かれます。</li>
