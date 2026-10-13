@@ -60,6 +60,9 @@
         <h2 id="write-title">書くもの</h2>
         <label class="kaku-label" for="draft-select">どれを書くか</label>
         <select class="kaku-select" id="draft-select"></select>
+        <div class="kaku-buttons" id="load-published" hidden>
+          <button class="kaku-button is-sub" id="load-published-button" type="button">公開中の本文を読み込む</button>
+        </div>
 
         <p class="kaku-note" id="lead-link-note" hidden></p>
 
@@ -77,6 +80,7 @@
           <li>空いた行で、段落が分かれます。</li>
           <li>行の頭を「■」にすると、小見出しになります。</li>
           <li>https:// から始まる URL は、自動でリンクになります。</li>
+          <li>公開中のページに継ぎ足すときは、「公開中の本文を読み込む」を押してから続きを書くと、前の本文が消えません。</li>
         </ul>
 
         <p class="kaku-check" id="nerai-check" hidden></p>

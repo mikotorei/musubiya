@@ -52,6 +52,12 @@
       .replace(/'/g, '&#39;');
   }
 
+  function unesc(s) {
+    return String(s)
+      .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'").replace(/&amp;/g, '&');
+  }
+
   function linkify(escaped) {
     return escaped.replace(/https?:\/\/[A-Za-z0-9\-._~:/?#[\]@!$&*+,;=%]+/g, function (url) {
       var tail = '';
@@ -88,6 +94,41 @@
   }
 
   // 本文 → 1 行の文字（説明文と、狙いの言葉の確認に使う）。日本語の行の間には空白を入れない
+  // 公開中のページの本文（HTML）→ 書く画面の本文（bodyToHtml の逆。小見出しは「■」、リンクは URL の文字に戻す）
+  function htmlToBody(bodyHtml) {
+    var doc = new DOMParser().parseFromString('<div>' + bodyHtml + '</div>', 'text/html');
+    var blocks = [];
+    Array.prototype.forEach.call(doc.body.firstChild.children, function (el) {
+      if (el.tagName === 'H2') {
+        blocks.push('■ ' + el.textContent.trim());
+      } else if (el.tagName === 'P') {
+        var lines = [];
+        var cur = '';
+        Array.prototype.forEach.call(el.childNodes, function (n) {
+          if (n.nodeName === 'BR') { lines.push(cur); cur = ''; } else { cur += n.textContent; }
+        });
+        lines.push(cur);
+        blocks.push(lines.map(function (l) { return l.trim(); }).join('\n'));
+      }
+    });
+    return blocks.join('\n\n');
+  }
+
+  // 公開中のページの HTML → { title, nerai, body, date, updated }
+  function parseArticle(html) {
+    var doc = new DOMParser().parseFromString(html, 'text/html');
+    var body = doc.querySelector('.yomi-body');
+    var nerai = doc.querySelector('meta[name="musubiya:nerai"]');
+    var times = doc.querySelectorAll('.yomi-date time');
+    return {
+      title: (doc.querySelector('.yomi-title') || {}).textContent || '',
+      nerai: nerai ? nerai.getAttribute('content') : '',
+      body: body ? htmlToBody(body.innerHTML) : '',
+      date: times[0] ? times[0].getAttribute('datetime') : '',
+      updated: times[1] ? times[1].getAttribute('datetime') : ''
+    };
+  }
+
   function plainText(text) {
     var lines = String(text)
       .replace(/\r\n?/g, '\n')
@@ -127,6 +168,15 @@
   function jaDate(iso) {
     var p = iso.split('-');
     return Number(p[0]) + '年' + Number(p[1]) + '月' + Number(p[2]) + '日';
+  }
+
+  // 「2026年10月13日（更新：2026年10月20日）」。更新が無ければ書いた日だけ
+  function datesHtml(page) {
+    var h = '<time datetime="' + page.date + '">' + jaDate(page.date) + '</time>';
+    if (page.updated && page.updated !== page.date) {
+      h += '（更新：<time datetime="' + page.updated + '">' + jaDate(page.updated) + '</time>）';
+    }
+    return h;
   }
 
   // ---------- 読みもののページの型 ----------
@@ -201,7 +251,7 @@
       '    <article class="wrap yomi-wrap">',
       '      <p class="yomi-kicker"><a href="./">読みもの</a></p>',
       '      <h1 class="yomi-title">' + esc(page.title) + '</h1>',
-      '      <p class="yomi-date"><time datetime="' + page.date + '">' + jaDate(page.date) + '</time></p>',
+      '      <p class="yomi-date">' + datesHtml(page) + '</p>',
       '      <p class="yomi-hikoshiki">' + HIKOSHIKI + '</p>' + lead,
       '',
       '      <div class="yomi-body">',
@@ -241,16 +291,20 @@
     if (s === -1 || e === -1 || e < s) throw new Error('一覧の印が見つかりません');
     var region = listHtml.slice(s, e);
     var entries = [];
-    var re = /<li data-slug="([^"]+)" data-date="(\d{4}-\d{2}-\d{2})">.*?<\/li>/g;
+    var re = /<li data-slug="([^"]+)" data-date="(\d{4}-\d{2}-\d{2})"(?: data-updated="(\d{4}-\d{2}-\d{2})")?>.*?<\/li>/g;
     var m;
-    while ((m = re.exec(region))) entries.push({ slug: m[1], date: m[2], html: m[0] });
+    while ((m = re.exec(region))) {
+      var t = m[0].match(/<a href="[^"]*">(.*?)<\/a>/);
+      entries.push({ slug: m[1], date: m[2], updated: m[3] || '', title: t ? unesc(t[1]) : m[1], html: m[0] });
+    }
     return entries;
   }
 
   function listEntryHtml(page) {
-    return '<li data-slug="' + esc(page.slug) + '" data-date="' + page.date + '">' +
+    var updated = page.updated && page.updated !== page.date ? ' data-updated="' + page.updated + '"' : '';
+    return '<li data-slug="' + esc(page.slug) + '" data-date="' + page.date + '"' + updated + '>' +
       '<a href="' + esc(page.slug) + '.html">' + esc(page.title) + '</a>' +
-      '<p class="yomi-list-date">' + jaDate(page.date) + '</p>' +
+      '<p class="yomi-list-date">' + datesHtml(page) + '</p>' +
       '<p class="yomi-list-text">' + esc(page.description) + '</p></li>';
   }
 
@@ -314,7 +368,8 @@
       body: body ? JSON.stringify(body) : undefined
     }).then(function (res) {
       return res.text().then(function (t) {
-        var data = t ? JSON.parse(t) : null;
+        var data = null;
+        try { data = t ? JSON.parse(t) : null; } catch (e) { data = null; }
         if (!res.ok) {
           var err = new Error((data && data.message) || ('HTTP ' + res.status));
           err.status = res.status;
@@ -335,10 +390,37 @@
     return d.toISOString().replace(/[-:T]/g, '').slice(0, 14);
   }
 
-  // draft: { title, nerai, body, slug?, leadLink? }。戻り値：{ prUrl, slug }
+  // どの段階で止まったかを付けて、失敗を投げ直す
+  function at(step) {
+    return function (err) {
+      if (!err.step) err.step = step;
+      throw err;
+    };
+  }
+
+  // 公開中（main）の一覧から、ページの slug と題を取る
+  function fetchPublishedList(token) {
+    return getText(token, LIST_PATH, BASE).then(listEntries);
+  }
+
+  // 公開中（main）のページを読む。{ title, nerai, body, date, updated }
+  function fetchPublished(token, slug) {
+    return getText(token, 'docs/yomimono/' + slug + '.html', BASE).then(parseArticle);
+  }
+
+  // 本文が前より大きく短くなったか（継ぎ足しのつもりで、前の本文が消えていないか）
+  var SHRINK_RATIO = 0.9;
+  function shrinkNote(oldBody, newBody) {
+    var o = plainText(oldBody).length;
+    var n = plainText(newBody).length;
+    return o > 0 && n < o * SHRINK_RATIO ? { before: o, after: n } : null;
+  }
+
+  // draft: { title, nerai, body, slug?, leadLink? }。戻り値：{ prUrl, slug, shrink }
   function save(token, draft) {
     var repo = '/repos/' + OWNER + '/' + REPO;
-    var headSha, treeSha, listHtml, sitemap, page;
+    var headSha, treeSha, listHtml, sitemap, page, entries, existing, branch, shrink = null;
+    var date = today();
     return gh(token, 'GET', repo + '/git/ref/heads/' + BASE)
       .then(function (r) {
         headSha = r.object.sha;
@@ -351,28 +433,36 @@
       .then(function (texts) {
         listHtml = texts[0];
         sitemap = texts[1];
-        var entries = listEntries(listHtml);
-        var date = today();
+        entries = listEntries(listHtml);
         var slug = draft.slug;
         if (!slug) {
           var taken = entries.map(function (x) { return x.slug; })
             .concat(KAKIKAKE.map(function (k) { return k.slug; }));
           slug = newSlug(taken, date);
         }
-        var existing = entries.filter(function (x) { return x.slug === slug; })[0];
+        existing = entries.filter(function (x) { return x.slug === slug; })[0];
         page = {
           slug: slug,
           title: draft.title.trim(),
           nerai: draft.nerai.trim(),
           date: existing ? existing.date : date, // 書いた日は、最初に公開した日のまま
+          updated: existing && existing.date !== date ? date : '',
           description: describe(draft.body),
           bodyHtml: bodyToHtml(draft.body),
           leadLink: draft.leadLink
         };
+        // 公開中のページを書き換えるときは、前の本文と長さを比べる（知らせるだけ）
+        if (!existing) return null;
+        // 読めなくても保存は止めない（比べられないだけ）
+        return getText(token, 'docs/yomimono/' + slug + '.html', headSha).then(parseArticle, function () { return null; });
+      })
+      .catch(at('read'))
+      .then(function (old) {
+        if (old) shrink = shrinkNote(old.body, draft.body);
         var files = [
-          { path: 'docs/yomimono/' + slug + '.html', content: buildArticle(page) },
+          { path: 'docs/yomimono/' + page.slug + '.html', content: buildArticle(page) },
           { path: LIST_PATH, content: updateList(listHtml, page) },
-          { path: SITEMAP_PATH, content: updateSitemap(sitemap, [SITE + '/yomimono/', SITE + '/yomimono/' + slug + '.html'], date) }
+          { path: SITEMAP_PATH, content: updateSitemap(sitemap, [SITE + '/yomimono/', SITE + '/yomimono/' + page.slug + '.html'], date) }
         ];
         return gh(token, 'POST', repo + '/git/trees', {
           base_tree: treeSha,
@@ -387,24 +477,29 @@
         });
       })
       .then(function (commit) {
-        var branch = 'yomimono/' + page.slug + '-' + stamp();
-        return gh(token, 'POST', repo + '/git/refs', { ref: 'refs/heads/' + branch, sha: commit.sha })
-          .then(function () { return branch; });
+        branch = 'yomimono/' + page.slug + '-' + stamp();
+        return gh(token, 'POST', repo + '/git/refs', { ref: 'refs/heads/' + branch, sha: commit.sha });
       })
-      .then(function (branch) {
-        return gh(token, 'POST', repo + '/pulls', {
-          title: '読みもの「' + page.title + '」を公開する',
-          head: branch,
-          base: BASE,
-          body: [
-            '書く画面から保存しました。マージすると公開されます。',
-            '',
-            '- ページ：`docs/yomimono/' + page.slug + '.html`（' + SITE + '/yomimono/' + page.slug + '.html）',
-            '- 一覧（`docs/yomimono/index.html`）と `docs/sitemap.xml` も書き換えています'
-          ].join('\n')
-        });
+      .catch(at('write'))
+      .then(function () {
+        var body = [
+          '書く画面から保存しました。マージすると公開されます。',
+          '',
+          '- ページ：`docs/yomimono/' + page.slug + '.html`（' + SITE + '/yomimono/' + page.slug + '.html）',
+          '- 一覧（`docs/yomimono/index.html`）と `docs/sitemap.xml` も書き換えています'
+        ];
+        if (existing) body.push('- 公開中のページの書き直しです（更新した日：' + jaDate(date) + '）');
+        if (shrink) body.push('- **本文が前より短くなっています（前：' + shrink.before + '字 → 今：' + shrink.after + '字）。前の本文が消えていないか確かめてからマージしてください。**');
+        return gh(token, 'POST', repo + '/pulls', { title: '読みもの「' + page.title + '」を公開する', head: branch, base: BASE, body: body.join('\n') })
+          .catch(function (err) {
+            // 提案を作れなかったら、作りかけの枝を消しておく
+            err.step = 'pr';
+            return gh(token, 'DELETE', repo + '/git/refs/heads/' + branch)
+              .then(function () { err.branchLeft = ''; }, function () { err.branchLeft = branch; })
+              .then(function () { throw err; });
+          });
       })
-      .then(function (pr) { return { prUrl: pr.html_url, slug: page.slug }; });
+      .then(function (pr) { return { prUrl: pr.html_url, slug: page.slug, shrink: shrink }; });
   }
 
   // ---------- 画面 ----------
@@ -427,6 +522,7 @@
     KAKIKAKE.forEach(function (k) {
       if (!s.drafts[k.id]) s.drafts[k.id] = { title: k.title, nerai: k.nerai, body: '' };
     });
+    if (!Array.isArray(s.published)) s.published = [];
     if (!s.current || !s.drafts[s.current]) s.current = KAKIKAKE[0].id;
     return s;
   }
@@ -455,27 +551,74 @@
       $('key-set').hidden = !has;
     }
 
+    function publishedSlugs() {
+      return state.published.map(function (x) { return x.slug; });
+    }
+
+    function slugOf(id) {
+      var k = kakikake(id);
+      if (k) return k.slug;
+      return state.drafts[id] ? state.drafts[id].slug : '';
+    }
+
+    function isPublished(id) {
+      var slug = slugOf(id);
+      return !!slug && publishedSlugs().indexOf(slug) !== -1;
+    }
+
+    function publishedTitle(slug) {
+      var x = state.published.filter(function (p) { return p.slug === slug; })[0];
+      return x ? x.title : '';
+    }
+
+    function addOption(sel, value, text) {
+      var o = document.createElement('option');
+      o.value = value;
+      o.textContent = text;
+      sel.appendChild(o);
+    }
+
     function refreshSelect() {
       var sel = $('draft-select');
+      var kakiSlugs = KAKIKAKE.map(function (k) { return k.slug; });
       sel.innerHTML = '';
       KAKIKAKE.forEach(function (k) {
-        var o = document.createElement('option');
-        o.value = k.id;
-        o.textContent = '書きかけ：' + k.title;
-        sel.appendChild(o);
+        var pub = publishedTitle(k.slug);
+        addOption(sel, k.id, pub ? '公開中：' + pub : '書きかけ：' + (state.drafts[k.id].title || k.title));
+      });
+      // 公開中のページ（書きかけ以外）。別の機械で書いたものもここから選べる
+      var shown = {};
+      state.published.forEach(function (x) {
+        if (kakiSlugs.indexOf(x.slug) !== -1) return;
+        var id = 'pub-' + x.slug;
+        shown[id] = true;
+        addOption(sel, id, '公開中：' + x.title);
       });
       Object.keys(state.drafts).forEach(function (id) {
-        if (kakikake(id)) return;
-        var o = document.createElement('option');
-        o.value = id;
-        o.textContent = '新しく書いたもの：' + (state.drafts[id].title || '（題なし）');
-        sel.appendChild(o);
+        if (kakikake(id) || shown[id]) return;
+        var d = state.drafts[id];
+        // 保存して提案を作ったが、まだマージしていないもの
+        addOption(sel, id, (id.indexOf('pub-') === 0 ? '保存済み（公開待ち）：' : '新しく書いたもの：') + (d.title || '（題なし）'));
       });
-      var n = document.createElement('option');
-      n.value = '__new__';
-      n.textContent = '＋ 新しく書く';
-      sel.appendChild(n);
+      addOption(sel, '__new__', '＋ 新しく書く');
       sel.value = state.current;
+    }
+
+    // 公開中の一覧を取る（鍵があれば GitHub の main から、無ければこのサイトから）
+    function loadPublishedList() {
+      var token = storeGet(TOKEN_KEY);
+      var p = token ? fetchPublishedList(token)
+        : fetch('./', { cache: 'no-store' }).then(function (r) { return r.text(); }).then(listEntries);
+      return p.then(function (entries) {
+        state.published = entries.map(function (x) { return { slug: x.slug, title: x.title }; });
+        storeSet(STORE_KEY, JSON.stringify(state));
+        refreshSelect();
+        refreshLoadButton();
+      }, function () { /* 読めなくても、書くことはできる */ });
+    }
+
+    function refreshLoadButton() {
+      $('load-published').hidden = !isPublished(state.current);
     }
 
     function current() { return state.drafts[state.current]; }
@@ -494,6 +637,7 @@
         note.hidden = true;
       }
       $('draft-clear').textContent = k ? '書いた内容を消す' : 'この下書きを消す';
+      refreshLoadButton();
       refreshCheck();
       if (!$('preview').hidden) refreshPreview();
     }
@@ -585,6 +729,10 @@
       if (v === '__new__') {
         v = 'new-' + Date.now();
         state.drafts[v] = { title: '', nerai: '', body: '' };
+      } else if (v.indexOf('pub-') === 0 && !state.drafts[v]) {
+        var slug = v.slice(4);
+        var pub = state.published.filter(function (x) { return x.slug === slug; })[0];
+        state.drafts[v] = { title: pub ? pub.title : '', nerai: '', body: '', slug: slug };
       }
       state.current = v;
       persist();
@@ -607,6 +755,34 @@
       showDraft();
     });
 
+    $('load-published-button').addEventListener('click', function () {
+      var slug = slugOf(state.current);
+      var d = current();
+      if (!slug) return;
+      if ((d.body || '').trim() && !window.confirm('このブラウザに残っている本文を、公開中の本文で置き換えます。よろしいですか。')) return;
+      var btn = this;
+      var token = storeGet(TOKEN_KEY);
+      btn.disabled = true;
+      setStatus('公開中の本文を読み込んでいます…');
+      var p = token ? fetchPublished(token, slug)
+        : fetch(slug + '.html', { cache: 'no-store' }).then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.text();
+        }).then(parseArticle);
+      p.then(function (a) {
+        d.title = a.title || d.title;
+        if (a.nerai) d.nerai = a.nerai;
+        d.body = a.body;
+        d.updated = Date.now();
+        persist();
+        refreshSelect();
+        showDraft();
+        setStatus('公開中の本文を読み込みました。続きを書いて保存してください。', 'ok');
+      }).catch(function (err) {
+        setStatus('読み込めませんでした。' + (err.status === 401 ? '鍵が違うか、期限が切れています。' : '電波の良いところで、もう一度押してください。（' + err.message + '）'), 'warn');
+      }).then(function () { btn.disabled = false; });
+    });
+
     $('preview-toggle').addEventListener('click', function () {
       var f = $('preview');
       f.hidden = !f.hidden;
@@ -624,6 +800,7 @@
       $('key-input').value = '';
       refreshKey();
       setStatus('鍵を入れました。', 'ok');
+      loadPublishedList();
     });
 
     $('key-clear').addEventListener('click', function () {
@@ -645,15 +822,33 @@
       setStatus('保存しています…');
       save(token, d).then(function (r) {
         var cur = current();
-        if (!kakikake(state.current)) cur.slug = r.slug; // 次に保存したときも同じページを書き換える
         cur.savedAt = Date.now();
+        if (!kakikake(state.current) && state.current.indexOf('pub-') !== 0) {
+          // 新しく書いたものは、次からは「公開中」として同じページを書き換える
+          cur.slug = r.slug;
+          delete state.drafts[state.current];
+          state.current = 'pub-' + r.slug;
+          state.drafts[state.current] = cur;
+        }
         persist();
-        setStatus('提案を作りました。開いて「Merge pull request」を押すと公開されます。', 'ok', r.prUrl);
+        refreshSelect();
+        refreshLoadButton();
+        loadPublishedList(); // マージ済みなら「公開中」に変わる
+        if (r.shrink) {
+          setStatus('提案を作りました。ただし、本文が前より短くなっています（前：' + r.shrink.before + '字 → 今：' + r.shrink.after +
+            '字）。前の本文が消えていないか確かめてから、「Merge pull request」を押してください。', 'warn', r.prUrl);
+        } else {
+          setStatus('提案を作りました。開いて「Merge pull request」を押すと公開されます。', 'ok', r.prUrl);
+        }
       }).catch(function (err) {
-        var msg = '保存できませんでした。';
+        var where = { read: 'GitHub から読み込むところ', write: 'GitHub に書き込むところ', pr: '提案を作るところ' }[err.step] || '';
+        var msg = '保存できませんでした' + (where ? '（' + where + 'で止まりました）' : '') + '。';
         if (err.status === 401) msg += '鍵が違うか、期限が切れています。';
-        else if (err.status === 403 || err.status === 404) msg += '鍵の権限が足りません（Contents と Pull requests の書き込みが要ります）。';
-        else msg += '電波の良いところで、もう一度押してください。（' + err.message + '）';
+        else if (err.status === 403 || err.status === 404) {
+          msg += err.step === 'pr' ? '鍵の Pull requests の権限が足りません（Read and write が要ります）。'
+            : '鍵の Contents の権限が足りません（Read and write が要ります）。';
+        } else msg += '電波の良いところで、もう一度押してください。（' + err.message + '）';
+        if (err.branchLeft) msg += '作りかけの枝「' + err.branchLeft + '」が残りました。GitHub の Branches から消してください。';
         setStatus(msg, 'warn');
       }).then(function () { btn.disabled = false; });
     });
@@ -661,13 +856,14 @@
     refreshKey();
     refreshSelect();
     showDraft();
+    loadPublishedList();
   }
 
   // 試験用に中身を出しておく
   window.Kaku = {
     bodyToHtml: bodyToHtml, describe: describe, checkNerai: checkNerai, buildArticle: buildArticle,
     listEntries: listEntries, updateList: updateList, updateSitemap: updateSitemap, newSlug: newSlug,
-    save: save, KAKIKAKE: KAKIKAKE
+    save: save, KAKIKAKE: KAKIKAKE, htmlToBody: htmlToBody, parseArticle: parseArticle, shrinkNote: shrinkNote
   };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
