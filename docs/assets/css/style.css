@@ -273,6 +273,99 @@ section[id] { scroll-margin-top: 16px; }
   line-height: 1.8;
 }
 
+.meishi-history {
+  display: flex;
+  gap: 12px;
+  margin: 20px 0 0;
+  padding-top: 14px;
+  border-top: 1px dashed var(--line);
+  font-size: 14px;
+}
+
+.meishi-history dt {
+  color: var(--muted);
+  letter-spacing: 0.2em;
+}
+
+.meishi-history dd {
+  margin: 0;
+  font-weight: 500;
+}
+
+/* ---------- できること ---------- */
+
+.dekiru {
+  padding-top: 32px;
+  padding-bottom: 72px;
+}
+
+.dekiru-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.dekiru-card {
+  padding: 22px 22px 20px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--shu);
+  border-radius: 2px;
+}
+
+.dekiru-name {
+  font-family: var(--font-mincho);
+  font-weight: 800;
+  font-size: 19px;
+  line-height: 1.55;
+  letter-spacing: 0.04em;
+}
+
+.dekiru-meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 14px;
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.dekiru-meta dt {
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.dekiru-meta dd {
+  margin: 0;
+}
+
+.dekiru-meta a {
+  color: var(--ai);
+  font-weight: 700;
+}
+
+/* ---------- 読みもの（トップの区画） ---------- */
+
+.home-yomi {
+  padding-top: 72px;
+  padding-bottom: 8px;
+}
+
+.home-yomi-text {
+  max-width: 40em;
+}
+
+.home-yomi-link {
+  display: inline-block;
+  margin-top: 14px;
+  color: var(--ai);
+  font-weight: 700;
+}
+
 /* ---------- 4. 作ったもの（棚と札） ---------- */
 
 .works {
@@ -286,7 +379,7 @@ section[id] { scroll-margin-top: 16px; }
 
 .fuda-list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(260px, 320px));
   gap: 24px;
   align-items: end;
 }
@@ -543,6 +636,10 @@ a.fuda-link:focus-visible { color: var(--shu); }
   .fuda-link { padding-top: 14px; }
 
   .request { padding: 56px 0 64px; }
+  .dekiru { padding-bottom: 56px; }
+  .dekiru-list { grid-template-columns: 1fr; gap: 14px; }
+  .dekiru-card { padding: 18px 18px 16px; }
+  .home-yomi { padding-top: 56px; }
   .support { padding-top: 56px; padding-bottom: 64px; }
   .support-box { padding: 22px 20px 20px; }
   .support-button { padding: 12px 20px; }
