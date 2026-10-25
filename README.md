@@ -16,6 +16,7 @@
 | `docs/yomimono/kaku.html`・`docs/assets/js/kaku.js` | 社長専用の書く画面（保存すると読みもののページを作り、提案を出す） |
 | `docs/assets/css/yomimono.css` | 読みもの・書く画面の見た目 |
 | `docs/CNAME` | 独自ドメインの設定 |
+| `docs/privacy.html` | プライバシーポリシー（アクセス解析・広告・Cookie・免責・問い合わせ先） |
 | `docs/sitemap.xml` | 検索エンジン向けのページ一覧 |
 | `docs/robots.txt` | 検索エンジン向けの巡回の許可と `sitemap.xml` の場所 |
 | `docs/.nojekyll` | GitHub Pages の Jekyll 処理を止める |
