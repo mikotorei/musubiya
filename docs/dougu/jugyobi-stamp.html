@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="ja" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>授業日スタンプ ｜ 授業日・レッスン日の予定表をカレンダーで作る無料の道具 ｜ 結び屋</title>
+  <meta name="description" content="カレンダーを押すだけで、教室の授業日やレッスン日の予定表が作れる無料の道具です。曜日でまとめて入れられ、祝日は自動で外れます。画像・日付の一覧・カレンダー取り込みの形で、保護者や生徒にそのまま配れます。">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="結び屋">
+  <meta property="og:title" content="授業日スタンプ ｜ 結び屋の道具">
+  <meta property="og:description" content="カレンダーを押すだけで、授業日やレッスン日の予定表が作れる無料の道具です。">
+  <meta property="og:url" content="https://musubiya-miko.com/dougu/jugyobi-stamp.html">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="theme-color" content="#F6F8FA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0F1A2B" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://musubiya-miko.com/dougu/jugyobi-stamp.html">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Old+Mincho:wght@600;700&display=swap">
+  <link rel="stylesheet" href="../assets/css/home.css">
+  <link rel="stylesheet" href="../assets/css/dougu.css">
+  <!-- 道具を出すかどうかだけを決める。動かなくても下の説明は全部読める -->
+  <script>document.documentElement.className = document.documentElement.className.replace("no-js", "js");</script>
+
+  <!-- Google アナリティクス（計測のみ。表示には使わない） -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XVP6Q1BMXK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XVP6Q1BMXK');
+  </script>
+</head>
+<body>
+
+  <!-- 上の帯 -->
+  <header class="hd">
+    <div class="inner">
+      <a class="mark" href="../"><span aria-hidden="true">結</span>結び屋</a>
+      <nav aria-label="サイトの中">
+        <a href="../#works">見て知る</a>
+        <a href="../#tools">触って知る</a>
+        <a class="ask" href="../tanomu.html">頼む</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="inner dg-main">
+    <h1>授業日スタンプ</h1>
+    <p class="lead">カレンダーをポチポチ押すだけで、授業日やレッスン日の予定表ができます！一回作れば、画像・日付の一覧・カレンダー取り込みの形で、保護者や生徒にそのまま配れます。登録はいりません。</p>
+    <p class="dg-nojs">この道具は、ブラウザの JavaScript を使って動きます。JavaScript を有効にすると使えます。使い方は下の説明で読めます。</p>
+
+    <!-- 道具（JavaScript が動く時だけ出す） -->
+    <div class="dg-tool" id="stamp-tool">
+      <section class="dg-step" aria-labelledby="step1">
+        <h2 id="step1"><i>1</i>押すスタンプを選ぶ</h2>
+        <p class="dg-hint" style="margin:0 0 6px">何を伝える予定表ですか？（スタンプの名前が入れ替わります）</p>
+        <div class="modes" id="presets" role="group" aria-label="使い方の例"></div>
+        <div class="stamps" id="stamps" role="group" aria-label="スタンプ"></div>
+        <details>
+          <summary>スタンプの名前と時間を変える</summary>
+          <div class="edit" id="edit"></div>
+          <p class="dg-hint">時間は入れなくても使えます。入れると、日付の一覧とカレンダー取り込みに時間が付きます。</p>
+        </details>
+      </section>
+
+      <section class="dg-step" aria-labelledby="step2">
+        <h2 id="step2"><i>2</i>カレンダーを押して日にちを入れる</h2>
+        <div class="ctrl">
+          <button type="button" id="prev" aria-label="前の月から">‹</button>
+          <span class="from" id="from"></span>
+          <button type="button" id="next" aria-label="次の月から">›</button>
+          <span class="sp"></span>
+          <label>表示 <select id="cnt"><option value="1">1か月</option><option value="2">2か月</option><option value="3">3か月</option><option value="4">4か月</option><option value="6">6か月</option></select></label>
+        </div>
+        <div class="months" id="months"></div>
+        <p class="dg-hint">曜日の名前を押すと、その月のその曜日にまとめて入ります（祝日は外します）。もう一度押すと消えます。</p>
+        <p class="dg-hint" id="holnote"></p>
+        <p class="count" id="count"></p>
+      </section>
+
+      <section class="dg-step" aria-labelledby="step3">
+        <h2 id="step3"><i>3</i>配る形で出す</h2>
+        <label class="field">教室の名前（画像の上に入ります）<input id="title" type="text" placeholder="例：〇〇教室" maxlength="30"></label>
+        <div class="tabs" role="tablist">
+          <button class="tab" role="tab" data-p="img" aria-selected="true" type="button">画像</button>
+          <button class="tab" role="tab" data-p="txt" aria-selected="false" type="button">日付の一覧</button>
+          <button class="tab" role="tab" data-p="ics" aria-selected="false" type="button">カレンダー取り込み</button>
+        </div>
+        <div class="pane show" id="p-img">
+          <div class="modes" role="group" aria-label="画像の形">
+            <button type="button" class="mode" data-v="each" aria-pressed="true">1か月ずつ（スマホで見やすい）</button>
+            <button type="button" class="mode" data-v="all" aria-pressed="false">まとめて1枚（印刷・パソコン向き）</button>
+          </div>
+          <div id="imgs"></div>
+          <p class="dg-hint">スマホでは、画像を長押ししても保存できます。</p>
+        </div>
+        <div class="pane" id="p-txt">
+          <textarea id="outtxt" readonly aria-label="日付の一覧"></textarea>
+          <div class="act"><button type="button" id="copytxt">一覧をコピーする</button><span class="msg" id="copymsg" aria-live="polite"></span></div>
+        </div>
+        <div class="pane" id="p-ics">
+          <p class="dg-hint" style="margin-top:0">Google カレンダーやスマホのカレンダーに、入れた日にちをまとめて取り込めるファイルです。</p>
+          <div class="act"><button type="button" id="saveics">取り込み用のファイルを保存する</button><span class="msg" id="icsmsg" aria-live="polite"></span></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 説明（JavaScript が無くても読める） -->
+    <div class="dg-doc">
+      <section aria-labelledby="doc-what">
+        <h2 id="doc-what">この道具でできること</h2>
+        <p>教室や習い事の授業日・レッスン日を、カレンダーの上でスタンプを押すように入れて、配る形の予定表にする道具です。一日ずつ日付を選んで打ち込む必要はありません。実際のカレンダーを見ながら押していくので、入れ間違いにもすぐ気づけます！</p>
+        <ul>
+          <li>押すスタンプは3つ。名前と時間は自由に変えられます</li>
+          <li>曜日の名前を押すと、その月のその曜日にまとめて入ります。祝日は自動で外れます</li>
+          <li>1か月から6か月まで、並べて見ながら入れられます</li>
+          <li>できた予定表は、画像・日付の一覧・カレンダー取り込みの3つの形で出せます</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="doc-how">
+        <h2 id="doc-how">使い方</h2>
+        <ol>
+          <li><strong>スタンプを選ぶ：</strong>「授業」「テスト対策」「休講」など、押したいスタンプを選びます。</li>
+          <li><strong>カレンダーを押す：</strong>授業のある日を押していきます。毎週同じ曜日なら、曜日の名前を押すとまとめて入ります。休講の日は「休講」のスタンプで押し直します。間違えた所は、同じスタンプでもう一度押すか、消しゴムで消せます。</li>
+          <li><strong>配る形で出す：</strong>教室の名前を入れて、配りたい形を選びます。</li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="doc-preset">
+        <h2 id="doc-preset">使い方の例</h2>
+        <p>最初に選ぶ「使い方の例」で、スタンプの名前が入れ替わります。押した日はそのまま残ります。</p>
+        <h3>授業のある日</h3>
+        <p>「授業」「テスト対策」「休講」。教室や塾、習い事の授業日の予定表に。</p>
+        <h3>どこにいるか（掛け持ち）</h3>
+        <p>「○○校」「△△校」「お休み」。いくつかの教室や校舎を掛け持ちしている先生が、どの日にどこにいるかを伝える予定表に。通う人は、先に大まかな予定を見てから予約を取れます。</p>
+        <h3>出勤とお休み</h3>
+        <p>「出勤」「午後から」「お休み」。指名で予約を受ける人が、出勤日を先に伝える予定表に。休みの日を知らずに予約の画面を開いてがっかりする、を減らせます。</p>
+      </section>
+
+      <section aria-labelledby="doc-out">
+        <h2 id="doc-out">配る形の選び方</h2>
+        <h3>画像（1か月ずつ）</h3>
+        <p>保護者や生徒がスマホで見る時に向いています。公式LINEやメールで「来月の予定」として1枚ずつ送れます。字が大きめなので、スマホの画面でも読めます。</p>
+        <h3>画像（まとめて1枚）</h3>
+        <p>印刷して教室に貼る時や、パソコンで見る時に向いています。</p>
+        <h3>日付の一覧</h3>
+        <p>「【授業】12月：3日(木)、10日(木)…」のような文になります。メールや LINE、ホームページのお知らせにそのまま貼れます。</p>
+        <h3>カレンダー取り込み</h3>
+        <p>Google カレンダーやスマホのカレンダーに、入れた日にちをまとめて取り込めるファイルです。先生自身の予定の管理にも使えます。</p>
+      </section>
+
+      <section aria-labelledby="doc-data">
+        <h2 id="doc-data">入れた内容の扱い</h2>
+        <p>入れたスタンプや教室の名前は、いま使っているブラウザの中にだけ残ります。結び屋を含め、どこにも送りません。次に開いた時は、続きから使えます。</p>
+        <p>別のパソコンやスマホには引き継がれません。予定表は、作った端末で仕上げてから配ってください。ブラウザの閲覧データを消すと、入れた内容も消えます。</p>
+      </section>
+
+      <section aria-labelledby="doc-faq">
+        <h2 id="doc-faq">よくある質問</h2>
+        <h3>お金はかかりますか？</h3>
+        <p>かかりません。登録もいりません。</p>
+        <h3>祝日はいつまで入っていますか？</h3>
+        <p>2027年の分まで入っています。次の年の分は、春分の日と秋分の日が決まってから足します。</p>
+        <h3>スマホでも作れますか？</h3>
+        <p>作れます。パソコンで作ると、2か月を並べて見ながら入れられるので、半年分などをまとめて作る時はパソコンが便利です。</p>
+        <h3>予約の受付もできますか？</h3>
+        <p>できません。この道具は、授業日やレッスン日を伝えるための予定表を作るものです。</p>
+      </section>
+
+      <!-- 道具を使った人が頼むページに来る道（話し合い 2026-11-14 で決定） -->
+      <section class="dg-ask" aria-label="結び屋に頼む">
+        <p>「ここがこうなら」「これもなんとかしたい」。使ってみてそう感じた所を、教室に合わせて形にします！</p>
+        <a href="../tanomu.html">結び屋に頼む →</a>
+      </section>
+    </div>
+  </main>
+
+  <!-- 下の帯 -->
+  <footer class="ft">
+    <div class="inner">
+      <p>結び屋　作り手 みこ　<a href="../">ホーム</a>　<a href="../tanomu.html">頼む</a></p>
+      <p>このサイトでは、アクセスの傾向を知るために Google アナリティクスを使っています。Google アナリティクスは Cookie を使いますが、個人を特定する情報は集めていません。<a href="https://policies.google.com/technologies/partner-sites?hl=ja">Google によるデータの使用について</a>　<a href="../privacy.html">プライバシーポリシー</a></p>
+    </div>
+  </footer>
+
+  <script src="../assets/js/jugyobi.js"></script>
+</body>
+</html>
