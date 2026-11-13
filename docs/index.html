@@ -1,26 +1,29 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <!-- Google AdSense のサイト確認（広告の表示には使わない） -->
   <meta name="google-adsense-account" content="ca-pub-6452016449623431">
   <title>結び屋 ｜ 人の声を形にする、作り手みこ</title>
-  <meta name="description" content="使う人の「あったらいいね」を形にします。ホームページの制作と手入れ、計算や記録の道具づくり、予約や会員の仕組みづくり。">
+  <meta name="description" content="「なんとかしたい」だけでも大丈夫！どう解決したいかを話し合いで引き出し、形にします。作り手みこのホームです。">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="結び屋">
   <meta property="og:title" content="結び屋 ｜ 人の声を形にする、作り手みこ">
-  <meta property="og:description" content="使う人の「あったらいいね」を形にします。ホームページの制作と手入れ、計算や記録の道具づくり、予約や会員の仕組みづくり。">
+  <meta property="og:description" content="「なんとかしたい」だけでも大丈夫！どう解決したいかを話し合いで引き出し、形にします。作り手みこのホームです。">
   <meta property="og:url" content="https://musubiya-miko.com/">
   <meta property="og:locale" content="ja_JP">
-  <meta name="theme-color" content="#F5F0E6">
+  <meta name="theme-color" content="#F6F8FA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0F1A2B" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://musubiya-miko.com/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Old+Mincho:wght@600;700&display=swap">
+  <link rel="stylesheet" href="assets/css/home.css">
+  <!-- 扇（表示のおまけ）を出すかどうかだけを決める。動かなくても下の一覧で全部読める -->
+  <script>document.documentElement.className = document.documentElement.className.replace("no-js", "js");</script>
 
   <!-- Google アナリティクス（計測のみ。表示には使わない） -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XVP6Q1BMXK"></script>
@@ -33,154 +36,126 @@
 </head>
 <body>
 
-  <!-- 1. 上の帯 -->
-  <header class="site-header">
-    <div class="wrap header-inner">
-      <a class="brand" href="./" aria-label="結び屋 ホーム">
-        <span class="seal-square" aria-hidden="true">結</span>
-        <span class="brand-name">結び屋</span>
-      </a>
-      <nav class="site-nav" aria-label="目次">
-        <ul>
-          <li><a href="#maker">作り手</a></li>
-          <li><a href="#dekiru">できること</a></li>
-          <li><a href="#works">作ったもの</a></li>
-          <li><a href="#request">頼む</a></li>
-          <li><a href="#yomimono">読みもの</a></li>
-          <li><a href="#support">応援</a></li>
-        </ul>
+  <!-- 上の帯 -->
+  <header class="hd">
+    <div class="inner">
+      <a class="mark" href="./"><span aria-hidden="true">結</span>結び屋</a>
+      <nav aria-label="サイトの中">
+        <a href="#works">見て知る</a>
+        <a href="#tools">触って知る</a>
+        <a class="ask" href="tanomu.html">頼む</a>
       </nav>
     </div>
   </header>
 
-  <main>
+  <main class="inner">
 
-    <!-- 2. 一文（結び屋の芯） -->
-    <section class="lead wrap" aria-labelledby="lead-title">
-      <h1 id="lead-title" class="lead-title">人の声を、形にする。</h1>
-    </section>
-
-    <!-- 3. 作り手（職場が特定できることは書かない） -->
-    <section id="maker" class="maker wrap" aria-labelledby="maker-title">
-      <h2 class="section-title" id="maker-title"><span class="section-kicker">一</span>作り手</h2>
-      <article class="meishi">
-        <span class="seal-round" aria-hidden="true">みこ</span>
-        <p class="meishi-role">作り手</p>
-        <p class="meishi-name">みこ</p>
-        <p class="meishi-text">決まった仕事の形にとらわれず、自分のやり方で理想を叶えたい。結び屋が目指すのは、使う人の「あったらいいね」を形にすること。頼んでくれた人の理想も、作り手の理想も、どちらも叶う形を探しています。</p>
-        <dl class="meishi-history">
-          <dt>経歴</dt>
-          <dd>公務員（在職中）</dd>
-        </dl>
-      </article>
-    </section>
-
-    <!-- 4. できること（できること・例・使うもの） -->
-    <section id="dekiru" class="dekiru wrap" aria-labelledby="dekiru-title">
-      <h2 class="section-title" id="dekiru-title"><span class="section-kicker">二</span>できること</h2>
-      <ul class="dekiru-list">
-        <li class="dekiru-card">
-          <h3 class="dekiru-name">ホームページを作って手入れする</h3>
-          <dl class="dekiru-meta">
-            <dt>例</dt>
-            <dd>見本のサイト：結び屋（このサイト）</dd>
-            <dt>使うもの</dt>
-            <dd>GitHub Pages</dd>
-          </dl>
-        </li>
-        <li class="dekiru-card">
-          <h3 class="dekiru-name">手間のかかる計算や記録を道具にする</h3>
-          <dl class="dekiru-meta">
-            <dt>例</dt>
-            <dd><a href="https://mikotorei.github.io/onceworld-alpha/">ビルドシミュレーター</a>（巫女とワンスワ攻略）</dd>
-            <dt>使うもの</dt>
-            <dd>ブラウザ、Excel</dd>
-          </dl>
-        </li>
-        <li class="dekiru-card">
-          <h3 class="dekiru-name">予約や会員の仕組みを作る</h3>
-          <dl class="dekiru-meta">
-            <dt>例</dt>
-            <dd>寺子屋の仕組み（制作中）</dd>
-            <dt>使うもの</dt>
-            <dd>WordPress</dd>
-          </dl>
-        </li>
-      </ul>
-    </section>
-
-    <!-- 5. 作ったもの -->
-    <section id="works" class="works" aria-labelledby="works-title">
-      <div class="wrap">
-        <h2 class="section-title" id="works-title"><span class="section-kicker">三</span>作ったもの</h2>
+    <!-- 一画面目：ひと言・扇・中身の枠 -->
+    <div class="first">
+      <div class="copy">
+        <h1>人の声を、形にする。</h1>
+        <p>「なんとかしたい」だけでも大丈夫！どう解決したいかを話し合いで引き出し、形にします！</p>
+        <p class="fact">作り手のみこです。「先読みが素晴らしい」「完成イメージが一目でわかる」など、好評の声をいただいています！</p>
+        <span class="knot" aria-hidden="true"></span>
       </div>
-      <div class="shelf">
-        <ul class="wrap fuda-list">
-          <li class="fuda">
-            <p class="fuda-status is-open">公開中</p>
-            <h3 class="fuda-name">巫女とワンスワ攻略</h3>
-            <p class="fuda-text">ワンスワの攻略に使う計算ツールと資料。</p>
-            <a class="fuda-link" href="https://mikotorei.github.io/onceworld-alpha/">開く<span aria-hidden="true"> →</span></a>
-          </li>
-          <li class="fuda">
-            <p class="fuda-status is-wip">制作中</p>
-            <!-- ゲームの名前が決まったら、次の行の「タイトル未定」だけを差し替える -->
-            <h3 class="fuda-name">タイトル未定</h3>
-            <p class="fuda-text">装備を鍛えて厳選する、スマホ向けのRPG。</p>
-            <p class="fuda-link is-disabled">公開を待つ</p>
-          </li>
-        </ul>
-        <div class="shelf-board" aria-hidden="true"></div>
-      </div>
-    </section>
-
-    <!-- 6. 頼む -->
-    <section id="request" class="request" aria-labelledby="request-title">
-      <div class="wrap">
-        <h2 class="section-title" id="request-title"><span class="section-kicker">四</span>頼む</h2>
-        <div class="request-entry">
-          <ul class="request-price">
-            <li>ホームページ制作：20,000円〜</li>
-            <li>LP（申し込みの1枚）制作：15,000円〜</li>
-            <li>毎月の保守：月3,000円〜</li>
-            <li>AIを使える形を作る：3,000円〜</li>
-            <li>サイトの直し（5か所まで）：3,000円〜</li>
-            <li>くり返しの作業の自動化：3,000円〜</li>
-            <li>予約や申し込みの受付の仕組み：3,000円〜</li>
-            <li>困りごとの整理と提案：3,000円〜</li>
-          </ul>
-          <a class="request-button" href="https://coconala.com/users/6343402/" target="_blank" rel="noopener noreferrer">ココナラで相談する（新しいタブで開きます）</a>
+      <div class="right" aria-hidden="false">
+        <div class="fan closed" id="fan">
+          <svg aria-hidden="true">
+            <defs>
+              <filter id="drop" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" style="flood-color:var(--shadow)"/></filter>
+              <radialGradient id="gPHi" gradientUnits="userSpaceOnUse"><stop offset=".40" style="stop-color:var(--paper-hi)"/><stop offset="1" style="stop-color:var(--paper-hi2)"/></radialGradient>
+              <radialGradient id="gPLo" gradientUnits="userSpaceOnUse"><stop offset=".40" style="stop-color:var(--paper-lo-in)"/><stop offset="1" style="stop-color:var(--paper-lo-out)"/></radialGradient>
+              <radialGradient id="gBHi" gradientUnits="userSpaceOnUse"><stop offset=".60" style="stop-color:var(--band-hi)"/><stop offset="1" style="stop-color:var(--band-hi2)"/></radialGradient>
+              <radialGradient id="gBLo" gradientUnits="userSpaceOnUse"><stop offset=".60" style="stop-color:var(--band-lo-in)"/><stop offset="1" style="stop-color:var(--band-lo-out)"/></radialGradient>
+              <linearGradient id="gLight" gradientUnits="userSpaceOnUse"><stop offset="0" style="stop-color:#FFFFFF;stop-opacity:var(--light-op)"/><stop offset=".5" style="stop-color:#FFFFFF;stop-opacity:0"/><stop offset="1" style="stop-color:#000000;stop-opacity:var(--shade-op)"/></linearGradient>
+              <pattern id="grain" width="140" height="140" patternUnits="userSpaceOnUse"><image width="140" height="140" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .36 0 0 0 0 .28 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E"/></pattern>
+              <linearGradient id="rootg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--rib)"/><stop offset="1" style="stop-color:var(--rib-lo)"/></linearGradient>
+            </defs>
+            <g id="ribs"></g>
+            <path id="root" style="fill:url(#rootg)"/>
+            <g id="paper" filter="url(#drop)"></g>
+          </svg>
+          <div class="cover" id="cover"><b>結び屋の案内</b><span>押すとひらきます</span></div>
+          <button class="opener" id="opener" type="button" aria-label="扇をひらく"></button>
+          <button class="kaname" id="kaname" type="button" aria-label="扇を閉じる"></button>
+          <div class="hint" id="hint"></div>
         </div>
+        <section class="panel" id="panel" aria-live="polite"><span class="s">羽根を押すと、ここに中身が出ます。</span></section>
       </div>
-    </section>
+    </div>
+    <div class="tools-row"><a class="openall" href="#all">全部まとめて読む ↓</a></div>
 
-    <!-- 7. 読みもの（ここは紹介と一覧への入口だけ。ページを足してもトップは直さない） -->
-    <section id="yomimono" class="home-yomi wrap" aria-labelledby="yomimono-title">
-      <h2 class="section-title" id="yomimono-title"><span class="section-kicker">五</span>読みもの</h2>
-      <p class="home-yomi-text">OnceWorld を遊んだみこが、ゲームのことや、攻略サイトを作った話を書いています（非公式の読みものです）。</p>
-      <a class="home-yomi-link" href="yomimono/">読みもの一覧へ<span aria-hidden="true"> →</span></a>
-    </section>
+    <!-- 全部を読める一覧（扇の中身もここから読む。JavaScript が動かなくても全部ここで読める） -->
+    <div class="all" id="all">
 
-    <!-- 8. 応援（投げ銭。OFUSE の名義は結び屋） -->
-    <section id="support" class="support wrap" aria-labelledby="support-title">
-      <h2 class="section-title" id="support-title"><span class="section-kicker">六</span>応援</h2>
-      <div class="support-box">
-        <p class="support-text">結び屋の道具やゲームが役に立ったら、お気持ちとして、応援として。<br class="pc-only">道具は無料のまま、払わなくても使えます。</p>
-        <!-- OFUSE の URL が変わったら、次の行の href だけを差し替える -->
-        <a class="support-button" href="https://ofuse.me/dfd7ad8d" target="_blank" rel="noopener noreferrer">OFUSE で結び屋を応援する（新しいタブで開きます）</a>
-        <p class="support-note">いただいたお気持ちは、結び屋の道具づくりに使います。作り手 みこ</p>
-      </div>
-    </section>
+      <!-- 作り手（職場が特定できることは書かない） -->
+      <section id="maker" class="lead" data-fan aria-labelledby="maker-title">
+        <h2 id="maker-title">作り手</h2>
+        <div>
+          <p class="sum">みこです！話し合いから作るところまで、全部ひとりで担当しています。頼む人と自分、両方の理想を叶えたくて作っています！</p>
+          <p class="sub">経歴：公務員（在職中）</p>
+        </div>
+      </section>
 
+      <!-- 作ったもの（画面は、攻略サイトのトップとビルドシミュレーターを入れる。今は入る場所だけ） -->
+      <section id="works" data-fan data-thumb="攻略サイトのトップ" aria-labelledby="works-title">
+        <h2 id="works-title">作ったもの</h2>
+        <div>
+          <p class="sum">攻略サイト「巫女とワンスワ攻略」を作りました！中でもビルドシミュレーターは、装備の組み合わせを試して、結果をその場で確かめられます。いまは、装備を鍛えるスマホ向けのRPGを作っています！</p>
+          <div class="shots">
+            <figure class="shot">攻略サイトのトップの画面</figure>
+            <figure class="shot">ビルドシミュレーターの画面</figure>
+          </div>
+          <p class="go"><a href="https://mikotorei.github.io/onceworld-alpha/" data-fan-text="作ったものを見る">巫女とワンスワ攻略を開く →</a></p>
+        </div>
+      </section>
+
+      <section id="kodawari" data-fan aria-labelledby="kodawari-title">
+        <h2 id="kodawari-title">大事にしていること</h2>
+        <div>
+          <p class="sum">頼む人の理想は、その人の中にもうあります。話し合いの中でそれを引き出して、形にして叶える。それを一番大事にしています！</p>
+        </div>
+      </section>
+
+      <section id="tools" data-fan aria-labelledby="tools-title">
+        <h2 id="tools-title">道具</h2>
+        <div>
+          <p class="sum">お店や小さな会社の、毎日のちょっとした手間。それを、触って試せる小さな道具にして置いていきます！（準備中）</p>
+        </div>
+      </section>
+
+      <!-- 読みもの（紹介と一覧への入口だけ。ページを足してもトップは直さない） -->
+      <section id="yomimono" data-fan aria-labelledby="yomimono-title">
+        <h2 id="yomimono-title">読みもの</h2>
+        <div>
+          <p class="sum">OnceWorld を遊んだ話や、攻略サイトを作った話など、いま10本読めます！</p>
+          <p class="sub">OnceWorld を遊んだみこが書いた、非公式の読みものです。</p>
+          <p class="go"><a href="yomimono/" data-fan-text="読みものを見る">読みもの一覧へ →</a></p>
+        </div>
+      </section>
+
+      <!-- 応援（投げ銭。OFUSE の名義は結び屋。対価に見せない） -->
+      <section id="support" data-fan aria-labelledby="support-title">
+        <h2 id="support-title">応援</h2>
+        <div>
+          <p class="sum">道具やゲームが役に立ったら、OFUSE で応援してもらえるとうれしいです！いただいた分は、次の道具づくりに使います。</p>
+          <p class="sub">道具は無料のまま、払わなくても使えます。</p>
+          <!-- OFUSE の URL が変わったら、次の行の href だけを差し替える -->
+          <p class="go"><a href="https://ofuse.me/dfd7ad8d" target="_blank" rel="noopener noreferrer" data-fan-text="OFUSE で応援する">OFUSE で結び屋を応援する（新しいタブで開きます） →</a></p>
+        </div>
+      </section>
+
+    </div>
   </main>
 
-  <!-- 9. 下の帯 -->
-  <footer class="site-footer">
-    <div class="wrap">
-      <p>© 結び屋　作り手 みこ</p>
-      <p class="footer-note">このサイトでは、アクセスの傾向を知るために Google アナリティクスを使っています。Google アナリティクスは Cookie を使いますが、個人を特定する情報は集めていません。<a href="https://policies.google.com/technologies/partner-sites?hl=ja">Google によるデータの使用について</a>　<a href="privacy.html">プライバシーポリシー</a></p>
+  <!-- 下の帯 -->
+  <footer class="ft">
+    <div class="inner">
+      <p>結び屋　作り手 みこ　<a href="tanomu.html">頼む</a></p>
+      <p>このサイトでは、アクセスの傾向を知るために Google アナリティクスを使っています。Google アナリティクスは Cookie を使いますが、個人を特定する情報は集めていません。<a href="https://policies.google.com/technologies/partner-sites?hl=ja">Google によるデータの使用について</a>　<a href="privacy.html">プライバシーポリシー</a></p>
     </div>
   </footer>
 
+  <script src="assets/js/ougi.js"></script>
 </body>
 </html>
