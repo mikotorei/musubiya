@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ja" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>頼む ｜ 結び屋</title>
+  <meta name="description" content="結び屋に頼めることと、その値段の一覧です。ホームページ制作、LP制作、毎月の保守、サイトの直し、作業の自動化、受付の仕組み、困りごとの整理、AIを使える形づくり。">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="結び屋">
+  <meta property="og:title" content="頼む ｜ 結び屋">
+  <meta property="og:description" content="結び屋に頼めることと、その値段の一覧です。">
+  <meta property="og:url" content="https://musubiya-miko.com/tanomu.html">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="theme-color" content="#F6F8FA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0F1A2B" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://musubiya-miko.com/tanomu.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Old+Mincho:wght@600;700&display=swap">
+  <link rel="stylesheet" href="assets/css/home.css">
+  <!-- 回る棚（表示のおまけ）を出すかどうかだけを決める。動かなくても下の一覧で全部読める -->
+  <script>document.documentElement.className = document.documentElement.className.replace("no-js", "js");</script>
+
+  <!-- Google アナリティクス（計測のみ。表示には使わない） -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XVP6Q1BMXK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XVP6Q1BMXK');
+  </script>
+</head>
+<body>
+
+  <!-- 上の帯 -->
+  <header class="hd">
+    <div class="inner">
+      <a class="mark" href="./"><span aria-hidden="true">結</span>結び屋</a>
+      <nav aria-label="サイトの中">
+        <a href="./#works">見て知る</a>
+        <a href="./#tools">触って知る</a>
+        <a class="ask" href="tanomu.html" aria-current="page">頼む</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 広告は置かない（頼もうとしている人が出て行かないように） -->
+  <main class="inner ask-main">
+    <h1>頼む</h1>
+    <p class="lead-line">気になるものを、正面に回してみてください！</p>
+
+    <!-- 回る棚（JavaScript が動く時だけ出す） -->
+    <div class="shelf">
+      <div class="stage" id="stage" aria-roledescription="回転する棚">
+        <div class="orbit" id="orbit"></div>
+      </div>
+      <div class="controls">
+        <button class="btn" id="prev" type="button" aria-label="前へ回す">‹</button>
+        <div class="dots" id="dots" aria-hidden="true"></div>
+        <button class="btn" id="next" type="button" aria-label="次へ回す">›</button>
+      </div>
+      <section class="detail" id="detail" aria-live="polite"></section>
+      <p class="note">左右に動かすほか、見出しを押す、矢印のボタン、キーボードの ← → でも回せます！</p>
+    </div>
+
+    <p class="ask-go"><a class="ask-button" href="https://coconala.com/users/6343402/" target="_blank" rel="noopener noreferrer" aria-label="ココナラで相談する（新しいタブで開きます）">ココナラで相談する</a><span class="ask-note">ココナラの結び屋のページが、新しいタブで開きます</span></p>
+
+    <!-- 8つの一覧（棚の中身もここから読む。金額と中身はココナラの出品のまま） -->
+    <section class="menu" aria-labelledby="menu-title">
+      <h2 id="menu-title">頼めること（8つ）</h2>
+      <p class="min">この金額でも、使える形でお渡しします！</p>
+      <ol id="menu">
+        <li data-item><h3>ホームページ制作</h3><p class="price">20,000円〜</p><p class="desc">何をしている人か分かって、連絡もできるページを1枚作ります！ネットで見られる状態にするところまでお任せください。ページや機能は、あとから足せます。</p></li>
+        <li data-item><h3>LP制作</h3><p class="price">15,000円〜</p><p class="desc">申し込みや問い合わせなど、一つの目的に向けたページを1枚作ります！誰に何を届けたいかを聞くところから始めます。</p></li>
+        <li data-item><h3>毎月の保守</h3><p class="price">月3,000円〜</p><p class="desc">サイトが止まらず見られ続けるように見守ります！月に1回、どれくらい見られているかの報告つきです。ほかで作ったサイトも相談できます。</p></li>
+        <li data-item><h3>サイトの直し</h3><p class="price">3,000円〜</p><p class="desc">困っている所を直して、元通り使える状態にします！（5か所まで）中身はそのままで、雰囲気だけ変える相談もできます。</p></li>
+        <li data-item><h3>くり返しの作業の自動化</h3><p class="price">3,000円〜</p><p class="desc">毎回くり返している作業1つを、ボタン一つや自動で終わる形にします！Excel やスプレッドシートの作業が得意です。</p></li>
+        <li data-item><h3>予約や申し込みの受付</h3><p class="price">3,000円〜</p><p class="desc">一番困っている受付の流れ1つを、仕組みで回るようにします！どこで手が止まっているかを、一緒に探します。</p></li>
+        <li data-item><h3>困りごとの整理と提案</h3><p class="price">3,000円〜</p><p class="desc">何を頼めばいいか分からなくても大丈夫です！困りごとを言葉にして、次に何をすればいいかが分かる形でお返しします。</p></li>
+        <li data-item><h3>AIを使える形を作る</h3><p class="price">3,000円〜</p><p class="desc">お仕事の一つで、AIを実際に使える状態にします！使う場面に合わせた頼み方まで用意します。</p></li>
+      </ol>
+    </section>
+  </main>
+
+  <!-- 下の帯 -->
+  <footer class="ft">
+    <div class="inner">
+      <p>結び屋　作り手 みこ　<a href="./">ホーム</a></p>
+      <p>このサイトでは、アクセスの傾向を知るために Google アナリティクスを使っています。Google アナリティクスは Cookie を使いますが、個人を特定する情報は集めていません。<a href="https://policies.google.com/technologies/partner-sites?hl=ja">Google によるデータの使用について</a>　<a href="privacy.html">プライバシーポリシー</a></p>
+    </div>
+  </footer>
+
+  <script src="assets/js/tana.js"></script>
+</body>
+</html>
