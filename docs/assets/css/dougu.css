@@ -86,3 +86,13 @@
   .edit .t1, .edit .t2 { grid-column: 2; }
 }
 @media (prefers-reduced-motion: reduce) { .day.pop .m { animation: none; } }
+
+/* 解説のページ（docs/kaisetsu/） */
+.ks-main { max-width: 760px; }
+.ks-sub { margin-top: 4px; color: var(--body); font-size: 1rem; }
+.ks-date { margin-top: 8px; color: var(--body); font-size: .82rem; }
+.ks-body { margin-top: 18px; }
+.ks-body section:first-child p { color: var(--ink); }
+.ks-go { display: inline-block; margin-top: 4px; font-weight: 700; text-decoration: none; border-bottom: 1px solid currentColor; }
+.dg-related ul { list-style: none; padding: 0; }
+.dg-related li { padding-block: 4px; }
