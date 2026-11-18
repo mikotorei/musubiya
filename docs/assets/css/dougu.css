@@ -69,6 +69,31 @@
 .act button { min-height: 44px; padding: 0 16px; border: 0; border-radius: 8px; background: var(--ai); color: #fff; cursor: pointer; font-weight: 700; }
 .act .msg { font-size: .84rem; color: var(--body); }
 
+/* 年間行事予定表メーカー：行事を入れる所と、入れた行事の一覧 */
+.ev-form { display: grid; gap: 10px; }
+.ev-form .modes { margin-bottom: 0; }
+.ev-when { display: flex; flex-wrap: wrap; gap: 10px; }
+.ev-when .field { min-width: 11em; }
+.ev-when .field[hidden] { display: none; }
+.field select { min-height: 44px; border: 1px solid var(--line); border-radius: 8px; padding: 0 8px; background: var(--paper-hi); }
+.ev-list { margin-top: 14px; display: grid; gap: 10px; }
+.ev-month h3 { margin: 0 0 4px; font-size: .95rem; color: var(--ai); }
+.ev-month ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.ev-month li { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; padding: 6px 2px; border-bottom: 1px solid var(--line); }
+.ev-month li::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--ai); flex: none; }
+.ev-month li.off::before { background: var(--body); }
+.ev-month .w { font-size: .86rem; color: var(--body); font-variant-numeric: tabular-nums; }
+.ev-month .nm { font-weight: 500; flex: 1; min-width: 8em; }
+.ev-month li.off .nm { color: var(--body); }
+.ev-month .op { display: flex; gap: 6px; }
+.ev-month .op button { min-height: 36px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper-hi); cursor: pointer; font-size: .84rem; }
+.ev-month .op.cont { font-size: .8rem; color: var(--body); }
+.ev-sample { display: block; margin-top: 8px; min-height: 40px; padding: 0 14px; border: 1px dashed var(--ai); border-radius: 8px; background: transparent; color: var(--ai); cursor: pointer; }
+#table-img, #cal-imgs { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+#table-img.all, #cal-imgs.all { grid-template-columns: minmax(0, 1fr); }
+#table-img figure, #cal-imgs figure { margin: 0; }
+#table-img img, #cal-imgs.all img { max-width: 760px; }
+
 /* 説明（JavaScript が無くても読める） */
 .dg-doc { margin-top: 28px; border-top: 1px solid var(--line); }
 .dg-doc section { padding-block: 20px; border-bottom: 1px solid var(--line); }
