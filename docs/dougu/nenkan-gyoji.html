@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="ja" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>年間行事予定表メーカー ｜ 教室・習い事の年間行事予定を表とカレンダーで作る無料の道具 ｜ 結び屋</title>
+  <meta name="description" content="教室や習い事の1年の行事を入れるだけで、月ごとの年間の表と、日にちまで分かるカレンダーが作れる無料の道具です。日にち未定の行事や、夏休みのような続くお休みも入れられます。画像・一覧の文・カレンダー取り込みの形で、そのまま配れます。">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="結び屋">
+  <meta property="og:title" content="年間行事予定表メーカー ｜ 結び屋の道具">
+  <meta property="og:description" content="1年の行事を入れるだけで、年間の表とカレンダーが作れる無料の道具です。">
+  <meta property="og:url" content="https://musubiya-miko.com/dougu/nenkan-gyoji.html">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="theme-color" content="#F6F8FA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0F1A2B" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://musubiya-miko.com/dougu/nenkan-gyoji.html">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Old+Mincho:wght@600;700&display=swap">
+  <link rel="stylesheet" href="../assets/css/home.css">
+  <link rel="stylesheet" href="../assets/css/dougu.css">
+  <!-- 道具を出すかどうかだけを決める。動かなくても下の説明は全部読める -->
+  <script>document.documentElement.className = document.documentElement.className.replace("no-js", "js");</script>
+
+  <!-- Google アナリティクス（計測のみ。表示には使わない） -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XVP6Q1BMXK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XVP6Q1BMXK');
+  </script>
+</head>
+<body>
+
+  <!-- 上の帯 -->
+  <header class="hd">
+    <div class="inner">
+      <a class="mark" href="../"><span aria-hidden="true">結</span>結び屋</a>
+      <nav aria-label="サイトの中">
+        <a href="../#works">見て知る</a>
+        <a href="../#tools">触って知る</a>
+        <a class="ask" href="../tanomu.html">頼む</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="inner dg-main">
+    <h1>年間行事予定表メーカー</h1>
+    <p class="lead">1年の行事を入れるだけで、月ごとに行事を並べた「年間の表」と、日にちまで分かる「カレンダー」が両方できます！日にちがまだ決まっていない行事や、夏休みのような何日も続くお休みも入れられます。登録はいりません。</p>
+    <p class="dg-nojs">この道具は、ブラウザの JavaScript を使って動きます。JavaScript を有効にすると使えます。使い方は下の説明で読めます。</p>
+
+    <!-- 道具（JavaScript が動く時だけ出す） -->
+    <div class="dg-tool" id="nenkan-tool">
+      <section class="dg-step" aria-labelledby="step1">
+        <h2 id="step1"><i>1</i>年度を選ぶ</h2>
+        <div class="modes" id="starts" role="group" aria-label="始まりの月">
+          <button type="button" class="mode" data-v="4" aria-pressed="true">4月始まり（年度）</button>
+          <button type="button" class="mode" data-v="1" aria-pressed="false">1月始まり</button>
+        </div>
+        <div class="ctrl">
+          <button type="button" id="prev" aria-label="前の年度">‹</button>
+          <span class="from" id="year"></span>
+          <button type="button" id="next" aria-label="次の年度">›</button>
+          <span class="dg-hint" id="range" style="margin:0"></span>
+        </div>
+        <p class="dg-hint" id="other"></p>
+        <p class="dg-hint" id="holnote"></p>
+      </section>
+
+      <section class="dg-step" aria-labelledby="step2">
+        <h2 id="step2"><i>2</i>行事を入れる</h2>
+        <div class="ev-form" id="ev-form">
+          <div class="modes" id="ev-type" role="group" aria-label="日にちの決まり方">
+            <button type="button" class="mode" data-v="day" aria-pressed="true">1日だけ</button>
+            <button type="button" class="mode" data-v="range" aria-pressed="false">何日も続く</button>
+            <button type="button" class="mode" data-v="month" aria-pressed="false">月だけ（日にちは未定）</button>
+          </div>
+          <div class="ev-when">
+            <label class="field" id="lab-d1"><span id="lab-d1-t">日にち</span><input id="ev-d1" type="date"></label>
+            <label class="field" id="lab-d2" hidden>終わりの日<input id="ev-d2" type="date"></label>
+            <label class="field" id="lab-ym" hidden>月<select id="ev-ym"></select></label>
+          </div>
+          <label class="field">行事の名前<input id="ev-name" type="text" maxlength="20" placeholder="例：発表会"></label>
+          <div class="modes ev-kind" id="ev-kind" role="group" aria-label="行事かお休みか">
+            <button type="button" class="mode" data-v="event" aria-pressed="true">行事</button>
+            <button type="button" class="mode" data-v="off" aria-pressed="false">お休み</button>
+          </div>
+          <div class="act"><button type="button" id="ev-add">この予定を入れる</button><span class="msg" id="ev-msg" aria-live="polite"></span></div>
+        </div>
+        <div class="ev-list" id="ev-list"></div>
+        <p class="count" id="count"></p>
+      </section>
+
+      <section class="dg-step" aria-labelledby="step3">
+        <h2 id="step3"><i>3</i>配る形で出す</h2>
+        <label class="field">教室の名前（画像の上に入ります）<input id="title" type="text" placeholder="例：〇〇教室" maxlength="30"></label>
+        <div class="tabs" role="tablist">
+          <button class="tab" role="tab" data-p="table" aria-selected="true" type="button">年間の表</button>
+          <button class="tab" role="tab" data-p="cal" aria-selected="false" type="button">カレンダー</button>
+          <button class="tab" role="tab" data-p="txt" aria-selected="false" type="button">一覧の文</button>
+          <button class="tab" role="tab" data-p="ics" aria-selected="false" type="button">カレンダー取り込み</button>
+        </div>
+        <div class="pane show" id="p-table">
+          <div class="modes" id="table-modes" role="group" aria-label="年間の表の形">
+            <button type="button" class="mode" data-v="two" aria-pressed="true">2列（印刷向き）</button>
+            <button type="button" class="mode" data-v="one" aria-pressed="false">1列（スマホで見やすい）</button>
+          </div>
+          <div id="table-img"></div>
+          <p class="dg-hint">スマホでは、画像を長押ししても保存できます。</p>
+        </div>
+        <div class="pane" id="p-cal">
+          <div class="modes" id="cal-modes" role="group" aria-label="カレンダーの形">
+            <button type="button" class="mode" data-v="each" aria-pressed="true">1か月ずつ（スマホで見やすい）</button>
+            <button type="button" class="mode" data-v="all" aria-pressed="false">12か月まとめて1枚（印刷向き）</button>
+          </div>
+          <div id="cal-imgs"></div>
+          <p class="dg-hint">日にち未定の行事は、その月のカレンダーの下に書きます。</p>
+        </div>
+        <div class="pane" id="p-txt">
+          <textarea id="outtxt" readonly aria-label="一覧の文"></textarea>
+          <div class="act"><button type="button" id="copytxt">一覧をコピーする</button><span class="msg" id="copymsg" aria-live="polite"></span></div>
+        </div>
+        <div class="pane" id="p-ics">
+          <p class="dg-hint" style="margin-top:0">Google カレンダーやスマホのカレンダーに、入れた行事をまとめて取り込めるファイルです。</p>
+          <p class="dg-hint" id="icsnote"></p>
+          <div class="act"><button type="button" id="saveics">取り込み用のファイルを保存する</button><span class="msg" id="icsmsg" aria-live="polite"></span></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 説明（JavaScript が無くても読める） -->
+    <div class="dg-doc">
+      <section aria-labelledby="doc-what">
+        <h2 id="doc-what">この道具でできること</h2>
+        <p>教室や習い事の1年分の行事を入れて、配る形の年間行事予定表にする道具です。学校から配られる行事予定のように、ざっくり見る「年間の表」と、日にちまで分かる「カレンダー」を、同じ中身から一度に作れます！</p>
+        <ul>
+          <li>4月始まりの年度と、1月始まりの1年を選べます</li>
+          <li>行事は「1日だけ」「何日も続く（夏休みなど）」「月だけ（日にちは未定）」の3つの入れ方ができます</li>
+          <li>行事とお休みを分けて入れられ、表とカレンダーで見分けが付きます</li>
+          <li>できた予定表は、年間の表・カレンダーの画像、一覧の文、カレンダー取り込みの形で出せます</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="doc-how">
+        <h2 id="doc-how">使い方</h2>
+        <ol>
+          <li><strong>年度を選ぶ：</strong>4月始まりか1月始まりかと、何年度の予定表かを選びます。</li>
+          <li><strong>行事を入れる：</strong>日にちの決まり方を選び、日にちと行事の名前を入れて「この予定を入れる」を押します。夏休みや年末年始は「何日も続く」と「お休み」で入れます。日にちがまだ決まっていない行事は「月だけ」で入れておき、決まったら「直す」で日にちを入れます。</li>
+          <li><strong>配る形で出す：</strong>教室の名前を入れて、配りたい形を選びます。</li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="doc-out">
+        <h2 id="doc-out">配る形の選び方</h2>
+        <h3>年間の表</h3>
+        <p>12か月を月ごとの枠に分けて、その月の行事を並べた表です。1年の流れをざっと見るのに向いています。年度の初めに配る時や、教室に貼る時に。印刷するなら2列、スマホで送るなら1列が見やすい形です。</p>
+        <h3>カレンダー</h3>
+        <p>日にちの決まった行事を、月ごとのカレンダーに書き込んだ画像です。何曜日か、ほかの予定と重ならないかを確かめるのに向いています。1か月ずつなら「来月の予定」として送れ、12か月まとめて1枚なら印刷して貼れます。</p>
+        <h3>一覧の文</h3>
+        <p>「2027年4月　・10日(土)　体験会」のような文になります。メールや LINE、ホームページのお知らせにそのまま貼れます。</p>
+        <h3>カレンダー取り込み</h3>
+        <p>Google カレンダーやスマホのカレンダーに、日にちの決まった行事をまとめて取り込めるファイルです。先生自身の予定の管理にも使えます。日にち未定の行事は入りません。</p>
+      </section>
+
+      <section aria-labelledby="doc-data">
+        <h2 id="doc-data">入れた内容の扱い</h2>
+        <p>入れた行事や教室の名前は、いま使っているブラウザの中にだけ残ります。結び屋を含め、どこにも送りません。次に開いた時は、続きから使えます。</p>
+        <p>別のパソコンやスマホには引き継がれません。予定表は、作った端末で仕上げてから配ってください。ブラウザの閲覧データを消すと、入れた内容も消えます。</p>
+      </section>
+
+      <section aria-labelledby="doc-faq">
+        <h2 id="doc-faq">よくある質問</h2>
+        <h3>お金はかかりますか？</h3>
+        <p>かかりません。登録もいりません。</p>
+        <h3>祝日は入っていますか？</h3>
+        <p>カレンダーの画像で、祝日の日付が赤くなります。2027年の分まで入っています。次の年の分は、春分の日と秋分の日が決まってから足します。祝日の名前は書かないので、教室がお休みになる祝日は「お休み」として入れてください。</p>
+        <h3>毎週の授業日も入れられますか？</h3>
+        <p>この道具は、発表会やお休みのような、1年の中の行事を入れるためのものです。毎週の授業日やレッスン日の予定表は、<a href="jugyobi-stamp.html">授業日スタンプ</a>で作れます。</p>
+        <h3>年度の途中で行事が変わったら？</h3>
+        <p>「直す」で日にちや名前を変えて、もう一度画像を保存して配り直してください。前に入れた内容は残っているので、変わった所だけ直せば済みます。</p>
+      </section>
+
+      <section class="dg-related" aria-labelledby="doc-kaisetsu">
+        <h2 id="doc-kaisetsu">予定表づくりの解説</h2>
+        <ul>
+          <li><a href="../kaisetsu/jugyobi-yoteihyo.html">来月の授業日の予定表の作り方｜保護者がスマホで見やすく、作る手間を減らすコツ</a></li>
+          <li><a href="../kaisetsu/kyuko-shukujitsu-furikae.html">休講・祝日・振替を予定表でどう見せるか｜保護者が迷わない書き方</a></li>
+          <li><a href="../kaisetsu/sumaho-yomiyasui-yoteihyo.html">保護者がスマホで読みやすい予定表にする工夫｜字の大きさ・形・画像かPDFか</a></li>
+        </ul>
+      </section>
+
+      <section class="dg-related" aria-labelledby="doc-dougu">
+        <h2 id="doc-dougu">ほかの道具</h2>
+        <ul>
+          <li><a href="jugyobi-stamp.html">授業日スタンプ｜授業日・レッスン日の予定表をカレンダーで作る</a></li>
+        </ul>
+      </section>
+
+      <!-- 道具を使った人が頼むページに来る道（話し合い 2026-11-14 で決定） -->
+      <section class="dg-ask" aria-label="結び屋に頼む">
+        <p>「ここがこうなら」「これもなんとかしたい」。使ってみてそう感じた所を、教室に合わせて形にします！</p>
+        <a href="../tanomu.html">結び屋に頼む →</a>
+      </section>
+    </div>
+  </main>
+
+  <!-- 下の帯 -->
+  <footer class="ft">
+    <div class="inner">
+      <p>結び屋　作り手 みこ　<a href="../">ホーム</a>　<a href="../tanomu.html">頼む</a></p>
+      <p>このサイトでは、アクセスの傾向を知るために Google アナリティクスを使っています。Google アナリティクスは Cookie を使いますが、個人を特定する情報は集めていません。<a href="https://policies.google.com/technologies/partner-sites?hl=ja">Google によるデータの使用について</a>　<a href="../privacy.html">プライバシーポリシー</a>　<a href="../unei.html">運営者</a>　<a href="../otoiawase.html">お問い合わせ</a></p>
+    </div>
+  </footer>
+
+  <script src="../assets/js/shukujitsu.js"></script>
+  <script src="../assets/js/nenkan.js"></script>
+</body>
+</html>
