@@ -12,9 +12,8 @@
 | --- | --- |
 | `docs/index.html` | ホーム |
 | `docs/assets/css/style.css` | 見た目 |
-| `docs/yomimono/index.html` | 読みものの一覧 |
-| `docs/yomimono/kaku.html`・`docs/assets/js/kaku.js` | 社長専用の書く画面（保存すると読みもののページを作り、提案を出す） |
-| `docs/assets/css/yomimono.css` | 読みもの・書く画面の見た目 |
+| `docs/yomimono/` | みこ攻へ移した読みものの転送のページ（2026-11-20） |
+| `docs/assets/css/yomimono.css` | プライバシーポリシーの見た目（前の読みものの型） |
 | `docs/CNAME` | 独自ドメインの設定 |
 | `docs/ads.txt` | 広告（Google AdSense）の販売者の宣言 |
 | `docs/privacy.html` | プライバシーポリシー（アクセス解析・広告・Cookie・免責・問い合わせ先） |
@@ -49,4 +48,4 @@
 - 制作中のゲームの名前：`docs/index.html` の「タイトル未定」を 1 か所差し替える（目印のコメントあり）
 - ページを足したり中身を大きく変えたりしたとき：`docs/sitemap.xml` の `<url>` と `<lastmod>` を直す
 - OFUSE の URL が変わったとき：`docs/index.html` の「四　応援」にある目印コメントの下の `href` を差し替える（今は https://ofuse.me/dfd7ad8d ）
-- 読みものを書くとき：スマホか PC で https://musubiya-miko.com/yomimono/kaku.html を開いて書き、「保存して提案を作る」を押し、出来た提案をマージする
+- 読みもの：みこ攻（https://mikotorei.github.io/onceworld-alpha/yomimono/）へ移した。書く画面は止めた
