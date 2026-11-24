@@ -16,6 +16,7 @@
       t: sec.querySelector("h2").textContent.trim(),
       s: sum ? sum.textContent.trim() : "",
       thumb: sec.getAttribute("data-thumb") || "",
+      thumbImg: (sec.querySelector(".shot img") || {}).src || "",   // 中身の枠の小さな画面は、一覧の最初の画面から読む
       go: go ? { href: go.getAttribute("href"), text: go.getAttribute("data-fan-text") || go.textContent.replace(/→/g, "").trim(), blank: go.getAttribute("target") === "_blank" } : null
     };
   });
@@ -67,7 +68,10 @@
     labs.forEach(function (l, j) { l.classList.toggle("sel", j === i); });
     paperG.appendChild(secs[i].g);   // 選んだ羽根を一番手前に
     var it = items[i], box = el("div", "rise");
-    if (it.thumb) box.appendChild(el("div", "thumb", it.thumb));
+    if (it.thumbImg) {
+      var th = el("div", "thumb has-img"), im = document.createElement("img");
+      im.src = it.thumbImg; im.alt = it.thumb; th.appendChild(im); box.appendChild(th);
+    } else if (it.thumb) box.appendChild(el("div", "thumb", it.thumb));
     box.appendChild(el("span", "t", it.t));
     box.appendChild(el("span", "s", it.s));
     if (it.go) {
