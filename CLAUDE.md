@@ -89,7 +89,7 @@ HTML と CSS の静的サイトで、GitHub Pages（`main` の `docs/`）から 
 ## 見た目
 
 - ホームと頼むページ（`docs/assets/css/home.css`）：色の理由は水引（相手に喜んでもらうために心を込めて結ぶもの）。白磁 `#F6F8FA`（地）、文字 `#1B2E45`、藍＝縹色 `#2A73A8`（納得・安心）、紅 `#C8102E`（受け取った時の喜び）。暗い時は夜の紺 `#0F1A2B` と金 `#D6A84A`。書体は見出し Zen Old Mincho、本文 Zen Kaku Gothic New。
-- プライバシーポリシー（`docs/assets/css/style.css`・`yomimono.css`）は、まだ前の色のまま：生成り `#F5F0E6`（地）、墨 `#201E1B`（文字）、朱 `#B33A2B`、藍 `#2B3F5C`。書体は見出し Shippori Mincho B1、本文 Zen Kaku Gothic New。サイト全体の見た目（AI感を減らす）を最後にまとめて見直す時に、そろえる。
+- プライバシーポリシーも 2026-11-25 にほかのページと同じ見た目（`home.css`・`dougu.css`）にそろえた。前の見た目のファイル（`style.css`・`yomimono.css`）は使うページが無くなったので外した。
 - 飾りは、そのサイトに必要な理由を説明できるものだけを残す。扇と棚以外の項目を箱で囲みすぎない。
 - 和は見立て（判子・札・棚）に使い、やりすぎない。
 
