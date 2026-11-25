@@ -11,9 +11,8 @@
 | ファイル | 役割 |
 | --- | --- |
 | `docs/index.html` | ホーム |
-| `docs/assets/css/style.css` | 見た目 |
+| `docs/assets/css/home.css`・`dougu.css` | 見た目（ホーム・頼む・道具・解説・基本のページ） |
 | `docs/yomimono/` | みこ攻へ移した読みものの転送のページ（2026-11-20） |
-| `docs/assets/css/yomimono.css` | プライバシーポリシーの見た目（前の読みものの型） |
 | `docs/CNAME` | 独自ドメインの設定 |
 | `docs/ads.txt` | 広告（Google AdSense）の販売者の宣言 |
 | `docs/privacy.html` | プライバシーポリシー（アクセス解析・広告・Cookie・免責・問い合わせ先） |
