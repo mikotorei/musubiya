@@ -203,6 +203,20 @@
   }
   // 保存の名前は英数字にする（日本語の名前は、ブラウザによって「download」という拡張子の無い名前になってしまうため）
   function download(href, name) { var a = document.createElement("a"); a.href = href; a.download = name; document.body.appendChild(a); a.click(); a.remove(); }
+  // iPhone・iPad は、ダウンロードだと「ファイル」に入ってしまう。共有の画面を出し、「画像を保存」で写真に入れられるようにする
+  var IOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
+  function savePic(p) {
+    if (IOS && navigator.canShare) {
+      var bin = atob(p.src.split(",")[1]), u = new Uint8Array(bin.length);
+      for (var i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i);
+      var f = new File([u], p.name, { type: "image/png" });
+      if (navigator.canShare({ files: [f] })) {
+        navigator.share({ files: [f] }).catch(function (e) { if (e && e.name !== "AbortError") download(p.src, p.name); });
+        return;
+      }
+    }
+    download(p.src, p.name);
+  }
   function drawOut() {
     var ms = monthsList(), each = S.img !== "all";
     var pics = each
@@ -212,7 +226,7 @@
     $("imgs").innerHTML = pics.map(function (p, i) {
       return '<figure><img src="' + p.src + '" alt="' + esc(p.alt) + '"><div class="act"><button type="button" data-i="' + i + '">この画像を保存する</button></div></figure>';
     }).join("");
-    $("imgs").querySelectorAll("button").forEach(function (b) { b.onclick = function () { var p = pics[+b.dataset.i]; download(p.src, p.name); }; });
+    $("imgs").querySelectorAll("button").forEach(function (b) { b.onclick = function () { savePic(pics[+b.dataset.i]); }; });
     root.querySelectorAll(".mode").forEach(function (b) { b.setAttribute("aria-pressed", String((b.dataset.v === "all") === !each)); });
     $("outtxt").value = listText() || "まだ何も入っていません。";
   }
